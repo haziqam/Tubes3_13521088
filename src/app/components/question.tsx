@@ -1,5 +1,3 @@
-import Image from "./pub"
-
 const Question = () => {
   return (
     <div className="grid grid-cols-12 bg-purple-200 rounded-md">
