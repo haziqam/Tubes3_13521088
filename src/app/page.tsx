@@ -2,7 +2,7 @@ import SideBar from "./components/sideBar";
 import Question from "./components/question";
 import Answer from "./components/answer";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="fixed w-screen h-screen background-color flex">
       <SideBar />

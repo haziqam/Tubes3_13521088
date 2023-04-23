@@ -10,15 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model QuestionandAnswer{
-  id Int @id @default(autoincrement())
-  question String @db.Text
-  answer String @db.Text
+model QuestionandAnswer {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
 }
 
-model chatHistory{
-  chat_id Int @id
-  sent_datetime DateTime
-  questionSideText String @db.Text
-  answerSideText String @db.Text
+model ChatHistory {
+  roomId   Int        @id @default(autoincrement())
+  name     String     @unique
+  messages Messages[]
+}
+
+model Messages {
+  messageId         Int          @id @default(autoincrement())
+  question          String
+  answer            String
+  ChatHistory       ChatHistory? @relation(fields: [chatHistoryRoomId], references: [roomId])
+  chatHistoryRoomId Int?
 }
