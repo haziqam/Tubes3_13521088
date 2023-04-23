@@ -1,21 +1,74 @@
-async function getQnA() {
-    const res = await fetch(`http://localhost:3000/api/getQnA`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch data from API');
+import { getQnA } from "./question";
+import { foundQuestion } from "./interface";
+import { QuestionAndAnswer } from "./interface";
+
+
+function LPS(toMatch: string): number[]{
+    let start: number = 0;
+    let i:number = 1;
+    const pattern: string = toMatch;
+    const stringLength: number = toMatch.length;
+    let lps: number[] = [];
+    lps[0] = 0;
+    while(i < stringLength){
+        if(toMatch[start] === pattern[i]){
+            start++;
+            lps[i] = start;
+            i++;
+        } else { //Not match
+            if(start === 0){
+                lps[i] = 0;
+                i++;
+            } else {
+                start = lps[start-1];
+            }
+        }
     }
-    const data = await res.json();
-    return data;
-  }
-  
-  async function fetchData() {
-    try {
-      const data = await getQnA();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+    return lps;
+}
+
+async function KMP(pattern: string): Promise<foundQuestion[]>{
+    let found: foundQuestion[] = [];
+    const data = await getQnA();
+    for(let i = 0; i < data.length; i++){
+        let questionLength = data[i].question.length;
+        let patternLength = pattern.length;
+        let patternLower = pattern.toLowerCase();
+        let questionLower = data[i].question.toLowerCase();
+        let k = 0;
+        let j = 0;
+        let lps = LPS(pattern);
+        let matches = 0;
+        
+        while(k < questionLength){ //As long as the text length is not 0
+            if (patternLower[k] === questionLower[j]){
+                k++;
+                j++;
+                matches++;
+                if (j === patternLength){ //If it reaches the pattern length, 
+                    j = lps[j-1]; 
+                }
+            } else {
+                if (j != 0){
+                    j = lps[j-1];
+                } else{
+                    k++;
+                }
+            }
+        }
+        if (matches > 0) {
+            let percentage = (matches / questionLength) * 100;
+            found.push({
+                question: data[i].question,
+                percentage: percentage,
+            });
+        }
     }
-  }
-  
-fetchData();
-  
-  
+    return found;
+}
+
+// KMP("Apa ibutkota indonesia?").then((result) => {
+//     console.log(result);
+//   }).catch((error) => {
+//     console.error(error);
+//   });
