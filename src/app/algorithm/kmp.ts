@@ -29,8 +29,9 @@ function LPS(toMatch: String): number[]{
     return lps;
 }
 
-async function levenshteinDistance(pattern: string): Promise<QuestionAndAnswer>{
+async function levenshteinDistance(pattern: string): Promise<QuestionAndAnswer[]>{
     let match: QuestionAndAnswer[] = [];
+    return match;
 
 }
 
