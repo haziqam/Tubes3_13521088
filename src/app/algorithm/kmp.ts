@@ -1,24 +1,7 @@
-interface QuestionAndAnswer {
-    id: number,
-    question: string,
-    answer: string,
-}
+import { getQnA } from "./question";
+import { foundQuestion } from "./interface";
 
-interface foundQuestion{
-    question: string,
-    percentage: number,
-}
 
-async function getQnA(): Promise<QuestionAndAnswer[]> {
-    const res = await fetch(`http://localhost:3000/api/getQnA`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch data from API');
-    }
-    const data = await res.json();
-    return data;
-}  
-  
-  
 function LPS(toMatch: String): number[]{
     let start: number = 0;
     let i:number = 1;
