@@ -1,22 +1,43 @@
-import SideBar from "./components/sideBar";
-import Question from "./components/question";
-import Answer from "./components/answer";
+import SideBar from "../pages/api/components/sideBar";
+import Question from "../pages/api/components/question";
+import Answer from "../pages/api/components/answer";
+import Search from "../pages/api/components/search";
+import { GetServerSideProps } from "next";
+import prisma from "../prisma/client";
+import { useRouter } from "next/router";
 
-export default function Home() {
+interface ChatHistory {
+  id: number;
+  name: String;
+  messages: String[];
+}
+
+interface HomeProps {
+  chatHistory: ChatHistory[];
+}
+
+const Home = ({ chatHistory }: HomeProps) => {
+  console.log("tes")
   return (
     <div className="fixed w-screen h-screen background-color flex">
       <SideBar />
       <div className="fixed ml-96 mt-5 h-screen w-7/12 space-y-3">
-      <Question />
-      <Answer />
-      <form method="GET">
-        <div className="fixed bottom-5 text-purple-600 w-10/12 p-2.5">
-            <button type="submit">
-            </button>
-        <input type="text" className="bg-purple-50 border border-purple-300 text-purple-900 text-sm rounded-lg block w-8/12 p-2.5" placeholder="Ask gojo anything..."/>
-        </div>
-  </form>
-        </div>
+        <Question />
+        <Answer />
+        <Search roomId={chatHistory} />
       </div>
+    </div>
   );
-}
+};
+
+export default Home;
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const chatHistory = await prisma.chatHistory.findMany({
+    orderBy: { id: "desc" },
+    take: 1,
+  });
+  return {
+    props: { chatHistory },
+  };
+};
