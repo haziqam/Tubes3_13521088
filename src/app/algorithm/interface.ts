@@ -9,4 +9,10 @@ export interface foundQuestion{
     percentage: number,
 }
 
+export interface BMSolution{
+    question: string, 
+    answer: string,
+    found: number,
+}
+
   

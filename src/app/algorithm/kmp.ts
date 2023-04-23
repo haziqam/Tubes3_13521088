@@ -1,40 +1,31 @@
 import { getQnA } from "./question";
 import { foundQuestion } from "./interface";
-import leven from 'leven';
 import { QuestionAndAnswer } from "./interface";
 
 
-function LPS(toMatch: String): number[]{
+function LPS(toMatch: string): number[]{
     let start: number = 0;
     let i:number = 1;
-    const pattern: String = toMatch;
+    const pattern: string = toMatch;
     const stringLength: number = toMatch.length;
     let lps: number[] = [];
-    lps[0] = 0
+    lps[0] = 0;
     while(i < stringLength){
         if(toMatch[start] === pattern[i]){
             start++;
             lps[i] = start;
             i++;
-        } else { //Not mactch
+        } else { //Not match
             if(start === 0){
-                lps[i] = 0 
+                lps[i] = 0;
                 i++;
             } else {
                 start = lps[start-1];
             }
         }
-
     }
     return lps;
 }
-
-async function levenshteinDistance(pattern: string): Promise<QuestionAndAnswer[]>{
-    let match: QuestionAndAnswer[] = [];
-    return match;
-
-}
-
 
 async function KMP(pattern: string): Promise<foundQuestion[]>{
     let found: foundQuestion[] = [];
@@ -81,6 +72,3 @@ async function KMP(pattern: string): Promise<foundQuestion[]>{
 //   }).catch((error) => {
 //     console.error(error);
 //   });
-
-const distance = leven('kitten', 'sitting');
-console.log(distance); // Output: 3
