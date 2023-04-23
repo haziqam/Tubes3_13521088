@@ -1,5 +1,7 @@
 import { getQnA } from "./question";
 import { foundQuestion } from "./interface";
+import leven from 'leven';
+import { QuestionAndAnswer } from "./interface";
 
 
 function LPS(toMatch: String): number[]{
@@ -27,6 +29,12 @@ function LPS(toMatch: String): number[]{
     return lps;
 }
 
+async function levenshteinDistance(pattern: string): Promise<QuestionAndAnswer>{
+    let match: QuestionAndAnswer[] = [];
+
+}
+
+
 async function KMP(pattern: string): Promise<foundQuestion[]>{
     let found: foundQuestion[] = [];
     const data = await getQnA();
@@ -39,7 +47,7 @@ async function KMP(pattern: string): Promise<foundQuestion[]>{
         let j = 0;
         let lps = LPS(pattern);
         let matches = 0;
-    
+        
         while(k < questionLength){ //As long as the text length is not 0
             if (patternLower[k] === questionLower[j]){
                 k++;
@@ -67,8 +75,11 @@ async function KMP(pattern: string): Promise<foundQuestion[]>{
     return found;
 }
 
-KMP("Apa ibutkota indonesia?").then((result) => {
-    console.log(result);
-  }).catch((error) => {
-    console.error(error);
-  });
+// KMP("Apa ibutkota indonesia?").then((result) => {
+//     console.log(result);
+//   }).catch((error) => {
+//     console.error(error);
+//   });
+
+const distance = leven('kitten', 'sitting');
+console.log(distance); // Output: 3
