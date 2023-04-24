@@ -6,15 +6,6 @@ import { GetServerSideProps } from "next";
 import prisma from "../prisma/client";
 import { useRouter } from "next/router";
 
-interface ChatHistory {
-  id: number;
-  name: String;
-  messages: String[];
-}
-
-interface HomeProps {
-  chatHistory: ChatHistory[];
-}
 
 const Home = ({ chatHistory }: HomeProps) => {
   console.log("tes")
@@ -32,12 +23,4 @@ const Home = ({ chatHistory }: HomeProps) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const chatHistory = await prisma.chatHistory.findMany({
-    orderBy: { id: "desc" },
-    take: 1,
-  });
-  return {
-    props: { chatHistory },
-  };
-};
+
