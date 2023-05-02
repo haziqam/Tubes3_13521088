@@ -3,7 +3,7 @@ import { AddQuestion } from "./implementations/AddQuestion";
 import { AskQuestion } from "./implementations/AskQuesetion";
 import { DeleteQuestion } from "./implementations/DeleteQuestion";
 
-class FeatureClassifier {
+export class FeatureClassifier {
     private readonly userMsg: string;
 
     private readonly addQuestion: RegExp 
@@ -41,12 +41,12 @@ class FeatureClassifier {
     }
 }
 
-// Example case
-const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
-const userMessage1 = "Hapus pertanyaan XXX dari database";
-let addQuestion: RegExp 
-= /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
-console.log(addQuestion.exec(userMessage));
+// // Example case
+// const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
+// const userMessage1 = "Hapus pertanyaan XXX dari database";
+// let addQuestion: RegExp 
+// = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
+// console.log(addQuestion.exec(userMessage));
 // const classifier = new FeatureClassifier(userMessage1);
 // const feature = classifier.getFeature();
 // console.log(feature.getResponse());
