@@ -1,8 +1,8 @@
+import { PrismaClient } from "@prisma/client";
 import { Feature } from "../feature";
 import { FeatureClassifier } from "../featureClassifier"
-import prisma from '../prismaClient';
 
-
+const prisma = new PrismaClient;
 
 export class AddQuestion extends Feature {
     private readonly regexMatch: string[];
@@ -22,6 +22,12 @@ export class AddQuestion extends Feature {
         super();
         this.regexMatch = regexMatch;
     }
+
+    /*
+    * Regex: /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i
+    *                      ^idx 1                     ^idx2          ^idx3            ^idx4       ^idx5    ^idx6          ^idx7
+    * Note: index 0 is the whole regex match.
+    */
 
     // Extracts question from regex match
     private extractQuestion(): string {
@@ -58,7 +64,7 @@ export class AddQuestion extends Feature {
     }
 }
 
-const userMsg = "Tambahkan pertanyaan apa matkul terseru dengan jawaban STIMA ke database";
+const userMsg = "Tambahkan pertanyaan aaaa dengan jawaban bbbbb ke database";
 const classsifier = new FeatureClassifier(userMsg);
 const feature = classsifier.getFeature();
 console.log(feature.getResponse());
