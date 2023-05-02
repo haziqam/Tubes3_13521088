@@ -1,32 +1,23 @@
 import { Feature } from "../feature";
+import { evaluate } from "../../algorithm/evaluate";
 
 export class Calculator extends Feature {
-    private readonly regexMatch: string[];
+    private readonly userMsg: string;
+    private readonly regex: RegExp;
 
-    constructor (regexMatch: string[]) {
+    constructor (userMsg: string, regex: RegExp) {
         super();
-        this.regexMatch = regexMatch;
+        this.userMsg = userMsg;
+        this.regex = regex;
     }
 
     getResponse(): string {
-        const pattern = /(\d+(\.\d+)?)\s*((\+|-|\*|\/|\^|\(|\))\s*\d+(\.\d+)?\s*)*(\+|-|\*|\/|\^)\s*\d+(\.\d+)?/;
-        let match = this.regexMatch;
-        const [fullMatch, num1, , operators, operator, num2] = match;
-        const result = applyOperator(num1, num2, operator);
-        let expression = expression.replace(fullMatch, result);
-
-        while ((match = pattern.exec(expression))) {
-          const [fullMatch, num1, , operators, operator, num2] = match;
-          const result = applyOperator(num1, num2, operator);
-          expression = expression.replace(fullMatch, result);
-        }
-
-        let successful: boolean = true;
-        if (successful) {
-            return "Pertanyaan " + question + " berhasil dihapuskan!";
+        const result = evaluate(this.userMsg, this.regex);
+        if (result != undefined && !isNaN(result)) {
+            return "Hasilnya adalah " + result.toString();
         }
         else {
-            return "gagal"
+            return "Sintaks persamaan tidak sesuai"
         }
     }
 }
