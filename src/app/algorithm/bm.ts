@@ -1,4 +1,5 @@
 import { foundQuestion, QuestionAndAnswer } from "./interface";
+import { getQnA } from "./question";
 
 function badCharacter(pattern: string): number[] {
   const last = new Array(256).fill(-1);
@@ -8,17 +9,18 @@ function badCharacter(pattern: string): number[] {
   return last;
 }
 
-export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer {
+export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[] {
   const patternLower = pattern.toLowerCase();
   const patternLength = pattern.length; //m
   const last = badCharacter(patternLower);
-  let result: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
+  let result: QuestionAndAnswer[] = [];
+  let s = 0;
+
 
   for (let i = 0; i < data.length; i++) {
     const textLower = data[i].question.toLowerCase(); //n
     const textLength = textLower.length;
-    let s = 0;
-    let percentage = 0;
+    let matches = 0;
 
     while (s <= textLength - patternLength) {
       let j = patternLength - 1;
@@ -28,21 +30,25 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
       }
 
       if (j < 0) {
+        matches++;
         s += patternLength - last[textLower.charCodeAt(s + patternLength)];
-        percentage = (patternLength / textLength) * 100;
       } else {
         s += Math.max(1, j - last[textLower.charCodeAt(s + j)]);
-        percentage = ((patternLength - j - 1) / patternLength) * 100;
       }
     }
 
-    if(percentage == 100){
-      result= data[i];
+    if (matches > 0) {
+      result.push({
+        id: data[i].id,
+        question: data[i].question,
+        answer: data[i].answer
+      });
     }
   }
 
   return result;
 }
+
 
 
 // boyerMoore("Apa IbuKota Indonesia?").then((result) => {

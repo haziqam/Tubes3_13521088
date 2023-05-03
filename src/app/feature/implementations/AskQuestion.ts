@@ -22,38 +22,55 @@ export class AskQuestion extends Feature {
         return data;
     }
 
-
-    
     getResponse(): string {
-        /* Searches question in db */
-        let algorithmResult: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
-        let leveinshteinResult : QuestionAndAnswer[] = [];
+        let res: string = "";
+        let result : QuestionAndAnswer[] = [];
+    
         if (this.algorithm == "KMP") {
             this.getQuestionandAnswer().then((questionAndAnswerArray) => {
-                algorithmResult = knuthMorrisPratt(this.userMsg, questionAndAnswerArray);
+                result = knuthMorrisPratt(this.userMsg, questionAndAnswerArray);
+    
+                if (result.length == 0) {
+                    this.getQuestionandAnswer().then((questionAndAnswerArray) => {
+                        result = levenshteinDistance(this.userMsg, questionAndAnswerArray);
+                        if (result.length == 0) {
+                            res = "Question cannot be processed";
+                        } else {
+                            res = "Similar question" + "\n";
+                            for(let i = 0; i < result.length; i++){
+                                res += result[i].answer;
+                            }
+                        }
+                    });
+                } else {
+                    res = result[0].answer;
+                }
             });
         } else if (this.algorithm == "BM") {
             this.getQuestionandAnswer().then((questionAndAnswerArray) => {
-                algorithmResult = boyerMoore(this.userMsg, questionAndAnswerArray);
+                result = boyerMoore(this.userMsg, questionAndAnswerArray);
+    
+                if (result.length == 0) {
+                    this.getQuestionandAnswer().then((questionAndAnswerArray) => {
+                        result = levenshteinDistance(this.userMsg, questionAndAnswerArray);
+                        if (result.length == 0) {
+                            res = "Question cannot be processed";
+                        } else {
+                            res = "Similar question" + "\n";
+                            for(let i = 0; i < result.length; i++){
+                                res += result[i].answer;
+                            }
+                        }
+                    });
+                } else {
+                    res = result[0].answer;
+                }
             });
+        } else {
+            res = "Invalid algorithm type";
         }
     
-        if (algorithmResult.id == -1) {
-            this.getQuestionandAnswer().then((questionAndAnswerArray) => {
-               leveinshteinResult = levenshteinDistance(this.userMsg, questionAndAnswerArray);
-            });
-
-        } else{
-            return algorithmResult.answer;
-        }
-
-        let result: String= "Do you mean this question?";
-        let addanswer: String = "";
-        for(let i = 0; i < leveinshteinResult.length; i++){
-            result += " " + leveinshteinResult[i].answer  + "\n";
-        }
-    
-        return "";
+        return res;
     }
-    
+      
 }

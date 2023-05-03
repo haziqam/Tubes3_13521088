@@ -1,6 +1,3 @@
-
-import { getQnA } from "./question";
-import { foundQuestion } from "./interface";
 import { QuestionAndAnswer } from "./interface";
 
 export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[]{
@@ -8,7 +5,6 @@ export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]):
     let match: QuestionAndAnswer[] = [];
     let patternLength = pattern.length;
     let patternLower = pattern.toLowerCase();
-
 
     for(let i = 0; i < data.length; i++){
         let question = data[i].question.toLowerCase();
@@ -32,7 +28,6 @@ export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]):
             }
         }
         let percentage = (1 - getDistance[patternLength][questionLength] / Math.max(patternLength, questionLength)) * 100;
-        console.log(percentage);
         if(percentage >= 50 && percentage <= 100){
             match.push({id: data[i].id, question: data[i].question, answer: data[i].answer});
         }

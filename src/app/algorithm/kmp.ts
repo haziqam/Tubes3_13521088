@@ -25,9 +25,9 @@ function LPS(toMatch: string): number[]{
     return lps;
 }
 
-export function knuthMorrisPratt(pattern: string, data:QuestionAndAnswer[]): QuestionAndAnswer{
-    let result: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
-    for(let i = 0; i < data.length; i++){
+export async function knuthMorrisPratt(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[] {
+    let found: QuestionAndAnswer[] = [];
+    for (let i = 0; i < data.length; i++) {
         let questionLength = data[i].question.length;
         let patternLength = pattern.length;
         let patternLower = pattern.toLowerCase();
@@ -35,26 +35,33 @@ export function knuthMorrisPratt(pattern: string, data:QuestionAndAnswer[]): Que
         let k = 0;
         let j = 0;
         let lps = LPS(pattern);
-        
-        while(k < questionLength){ //As long as the text length is not 0
-            if (patternLower[k] === questionLower[j]){
+        let matches = 0;
+
+        while (k < questionLength) {
+            if (patternLower[k] === questionLower[j]) {
                 k++;
                 j++;
-                if (j === patternLength){ //If it reaches the pattern length, 
-                    j = lps[j-1]; 
+                matches++;
+                if (j === patternLength) {
+                    j = lps[j - 1];
                 }
             } else {
-                if (j != 0){
-                    j = lps[j-1];
-                } else{
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
                     k++;
                 }
             }
         }
-        if(j==1){
-            result = data[i];
+        let percentage = (matches / questionLength) * 100;
+        if (percentage > 30) {
+            found.push({
+                id: data[i].id,
+                question: data[i].question,
+                answer: data[i].answer
+            });
         }
     }
-    return result;
+    return found;
 }
 
