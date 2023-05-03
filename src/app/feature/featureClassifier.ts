@@ -61,7 +61,7 @@ export default class FeatureClassifier {
 // let addQuestion: RegExp 
 // = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
 // console.log(addQuestion.exec(userMessage));
-const userMessage = "apa ibukota indosaf nesia?";
+const userMessage = "apa ibukota indosafnesia?";
 const classifier = new FeatureClassifier(userMessage, "BM");
 const feature = classifier.getFeature();
 (async () => {

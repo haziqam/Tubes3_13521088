@@ -1,10 +1,11 @@
-import { QuestionAndAnswer } from "./interface";
+import { QuestionAndAnswer, foundQuestion } from "./interface";
 
 export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[]{
     /**Measures the minimum number of single-character edits (insertion, deletions, or substitutions) */
     let match: QuestionAndAnswer[] = [];
     let patternLength = pattern.length;
     let patternLower = pattern.toLowerCase();
+    let bestMatch: foundQuestion[] = [];
 
     for(let i = 0; i < data.length; i++){
         let question = data[i].question.toLowerCase();
@@ -29,7 +30,17 @@ export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]):
         }
         let percentage = (1 - getDistance[patternLength][questionLength] / Math.max(patternLength, questionLength)) * 100;
         if(percentage >= 50 && percentage <= 100){
-            match.push({id: data[i].id, question: data[i].question, answer: data[i].answer});
+            bestMatch.push({question: data[i].id, percentage: percentage})
+        }
+
+        
+        bestMatch.sort((a, b) => b.percentage - a.percentage);
+    }
+    for(let i = 0; i< bestMatch.length; i++){
+        for(let j = 0; j < data.length; j++){
+            if(data[j].id == bestMatch[i].question){
+                match.push({id: data[j].id, question: data[j].question, answer: data[j].answer});
+            }
         }
     }
     return match;

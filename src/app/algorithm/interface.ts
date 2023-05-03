@@ -5,7 +5,7 @@ export interface QuestionAndAnswer {
 }
 
 export interface foundQuestion{
-    question: string,
+    question: number,
     percentage: number,
 }
 
@@ -14,5 +14,7 @@ export interface BMSolution{
     answer: string,
     found: number,
 }
+
+
 
   
