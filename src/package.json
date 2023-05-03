@@ -23,6 +23,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "prisma": "^4.13.0"
+    "prisma": "^4.13.0",
+    "tailwind-scrollbar": "^3.0.0"
   }
 }

@@ -33,7 +33,7 @@ export class AskQuestion extends Feature {
         } else if (this.algorithm == "BM") {
             result = boyerMoore(this.userMsg, await this.getQuestionandAnswer());
         } else {
-            res = "Invalid algorithm type";
+            res = "You have not choose the algorithm";
             return res;
         }
 
