@@ -1,5 +1,5 @@
 import { Feature } from "../feature";
-import { addQnA } from "../../algorithm/question";
+import { addQnA } from "../../request/request";
 // import FeatureClassifier from "../featureClassifier";
 
 // const prisma = new PrismaClient();

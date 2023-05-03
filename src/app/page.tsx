@@ -6,7 +6,7 @@ import SideBar from "./components/sideBar";
 import Answer from "./components/answer";
 import Question from "./components/question";
 import Search from "./components/search";
-import { addChat } from "./algorithm/saveChat";
+import { addChat } from "./request/saveChat";
 
 export interface Questions {
   id: number;

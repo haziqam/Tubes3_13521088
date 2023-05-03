@@ -1,5 +1,4 @@
-import { foundQuestion, QuestionAndAnswer } from "./interface";
-import { getQnA } from "./question";
+import { QuestionAndAnswer } from "./interface";
 
 function badCharacter(pattern: string): number[] {
   const last = new Array(256).fill(-1);

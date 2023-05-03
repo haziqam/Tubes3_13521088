@@ -1,4 +1,4 @@
-import { QuestionAndAnswer } from "./interface";
+import { QuestionAndAnswer } from "../algorithm/interface";
 
 export async function getQnA(): Promise<QuestionAndAnswer[]> {
   const res = await fetch(`http://localhost:3000/api/post/getQnA`);

@@ -1,4 +1,4 @@
-import { Messages } from "./interface";
+import { Messages } from "../algorithm/interface";
 
 /**
  * @param question Pertanyaan yang akan ditambahkan

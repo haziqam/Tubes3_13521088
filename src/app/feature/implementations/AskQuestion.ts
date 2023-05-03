@@ -1,5 +1,5 @@
 import { Feature } from "../feature";
-import { getQnA } from "../../algorithm/question";
+import { getQnA } from "../../request/request";
 import { QuestionAndAnswer, foundQuestion } from "../../algorithm/interface";
 import { knuthMorrisPratt } from "../../algorithm/kmp";
 import { boyerMoore } from"../../algorithm/bm"
