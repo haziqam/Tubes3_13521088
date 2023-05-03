@@ -44,7 +44,15 @@ export default class FeatureClassifier {
 
         match = this.calculator.exec(this.userMsg);
         if (match !== null) {
-            return new Calculator(this.userMsg, this.calculator);
+            const arr = this.userMsg.match(this.calculator)
+            if(arr != null){
+                let cekOperand = false;
+                arr.forEach((el) => {
+                    console.log(el);
+                    if(el === '+' || el === '-' || el === '*' || el === '/') cekOperand = true;
+                });
+                if(cekOperand) return new Calculator(this.userMsg, this.calculator);
+            }
         }
 
         /* ... */
@@ -61,12 +69,14 @@ export default class FeatureClassifier {
 // let addQuestion: RegExp 
 // = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
 // console.log(addQuestion.exec(userMessage));
-const userMessage = "apa ibukota indosafnesia?";
-const classifier = new FeatureClassifier(userMessage, "BM");
-const feature = classifier.getFeature();
-(async () => {
-    const response = await feature.getResponse();
-    console.log(response); 
-})()
-
-
+// const userMessage = "apa ibukota indosafnesia?";
+// const classifier = new FeatureClassifier(userMessage, "BM");
+// const feature = classifier.getFeature();
+// (async () => {
+//     const response = await feature.getResponse();
+//     console.log(response); 
+// })()
+// let cal: RegExp = /(\d+(\.\d+)?|-?\d+(\.\d+)?|[+\-*/^()])/g
+// const userMessage1 = "1 + 2?";
+// const classifier1 = new FeatureClassifier(userMessage1, "BM");
+// console.log(userMessage1.match(cal));
