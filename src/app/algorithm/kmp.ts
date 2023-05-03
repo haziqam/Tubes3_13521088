@@ -1,4 +1,4 @@
-import { foundQuestion, QuestionAndAnswer } from "./interface";
+import { QuestionAndAnswer } from "./interface";
 
 
 function LPS(toMatch: string): number[]{
