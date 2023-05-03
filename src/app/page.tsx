@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from "react";
 import axios from "axios";
-import { FeatureClassifier } from "./feature/featureClassifier";
+import FeatureClassifier from "./feature/featureClassifier";
 import SideBar from "./components/sideBar";
 import Answer from "./components/answer";
 import Question from "./components/question";
 import Search from "./components/search";
-import { PrismaClient } from "@prisma/client";
+import { addChat } from "./algorithm/saveChat";
 
 export interface Questions {
   id: number;
@@ -23,14 +23,24 @@ const Home = () => {
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
-    const featClassifier = new FeatureClassifier(inputElement.value);
+    // algorithm nya disesuaiin, terganting side bar
+    const featClassifier = new FeatureClassifier(inputElement.value, "KMP");
     const feat = featClassifier.getFeature();
-    const response = feat.getResponse();
+    const resp: string | Promise<string> = feat.getResponse();
+    let response: string;
+    if(typeof (resp) === 'string'){
+      response = resp;
+    }
+    else{
+      response = await resp;
+    }
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
       responses: [response],
     };
+    // roomId nya disesuaiin, terganting side bar
+    await addChat(inputElement.value, response, 1);
     setQuestions([...questions, newQuestion]);
     setInputValue("");
   };

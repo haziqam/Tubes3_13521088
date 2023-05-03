@@ -17,4 +17,9 @@ export interface BMSolution{
 
 
 
-  
+export interface Messages {
+    messageId: number,
+    question: string,
+    answer: string,
+    chatHistoryRoomId: number
+}  
