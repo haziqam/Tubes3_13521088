@@ -1,4 +1,4 @@
-import { getAllRoom } from "../request/saveChat";
+import { getAllRoom, createRoom } from "../request/saveChat";
 import { chatRoom } from "../algorithm/interface";
 
 async function getRoom(): Promise<chatRoom[]>{
@@ -6,9 +6,14 @@ async function getRoom(): Promise<chatRoom[]>{
     return data;
 }
 
+async function create(){
+  await createRoom();
+}
+
 getRoom().then((data) => {
     console.log(data); // or update state or do something with the data
   }).catch((error) => {
     console.error(error);
   });
-  
+// console.log(getRoom.length);
+// create();

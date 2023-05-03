@@ -1,7 +1,7 @@
 import { Messages, chatRoom } from "../algorithm/interface";
 
 export async function getAllRoom(): Promise<chatRoom[]> {
-  const res = await fetch(`http://localhost:3000/api/post/getAllRoom`);
+  const res = await fetch(`http://localhost:3000/api/post/getRoom`);
   if (!res.ok) {
     throw new Error('Failed to fetch data from API');
   }
@@ -29,13 +29,13 @@ export async function getAllRoom(): Promise<chatRoom[]> {
 export async function createRoom(): Promise<chatRoom> {
   const chatRoom = await getAllRoom();
   const len = chatRoom.length;
+ console.log(len); 
   const res = await fetch(`http://localhost:3000/api/post/createRoom`, {
     method: 'POST',
     body: JSON.stringify({
       param:
       {
-        name: `Room ${len + 1}`,
-        messages: []
+        name: `Room ${len + 1}`
       }
     })
   });

@@ -22,33 +22,42 @@ const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [algorithm, setAlgorithm] = useState("");
 
+  useEffect(() => {
+    const getRooms = async () => {
+      const rooms = await getAllRoom();
+      setRoom(rooms);
+    };
+    getRooms();
+  }, []);
+
+  console.log(room)
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
     // algorithm nya disesuaiin, terganting side bar
-    const inputArray = (inputElement.value).split('dan');
+    const inputArray = inputElement.value.split("dan");
     let response = "";
-    for (let i = 0; i < inputArray.length; i++){
+    for (let i = 0; i < inputArray.length; i++) {
       const featClassifier = new FeatureClassifier(inputArray[i], "KMP");
       const feat = featClassifier.getFeature();
       const resp: string | Promise<string> = feat.getResponse();
-      if(typeof (resp) === 'string'){
+      if (typeof resp === "string") {
         if (i != 0) response += ", ";
         response += resp;
-      }
-      else{
+      } else {
         if (i != 0) response += ", ";
         response += await resp;
       }
-    };
+    }
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
       responses: [response],
     };
 
+    
     // roomId nya disesuaiin, terganting side bar
     await addChat(inputElement.value, response, 1);
     setQuestions([...questions, newQuestion]);
@@ -70,15 +79,14 @@ const Home = () => {
           >
             + New Chat
           </button>
-
           <div className="flex-col items-center h-96 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
             {room.map((r) => (
               <div
                 key={r.roomId}
                 className="py-2.5 px-5 mr-2 mb-2 w-52 h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded"
               >
-                <button className="text-center truncate w-full">
-                  {r.roomName}
+                <button className="text-center truncate w-full text-white">
+                  Room {r.roomId}
                 </button>
               </div>
             ))}
@@ -98,7 +106,7 @@ const Home = () => {
                 type="radio"
                 className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-purple-500 text-purple-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
                 onChange={() => setAlgorithm("KMP")}
-                />
+              />
               <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-purple-500 opacity-0 transition-opacity peer-checked:opacity-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +133,7 @@ const Home = () => {
                 type="radio"
                 className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-purple-500 text-purple-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
                 onChange={() => setAlgorithm("BM")}
-                />
+              />
               <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-purple-500 opacity-0 transition-opacity peer-checked:opacity-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
