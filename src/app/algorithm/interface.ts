@@ -15,8 +15,6 @@ export interface BMSolution{
     found: number,
 }
 
-
-
 export interface Messages {
     messageId: number,
     question: string,
