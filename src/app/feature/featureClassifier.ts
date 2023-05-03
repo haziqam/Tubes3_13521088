@@ -61,8 +61,8 @@ export default class FeatureClassifier {
 // let addQuestion: RegExp 
 // = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
 // console.log(addQuestion.exec(userMessage));
-const userMessage = "apa ibukota indosafnesia?";
-const classifier = new FeatureClassifier(userMessage, "BM");
+const userMessage = "Siapakah pelukis te rkenal as ala Italia yang menciptakan lukisan Mona Lisa?";
+const classifier = new FeatureClassifier(userMessage, "KMP");
 const feature = classifier.getFeature();
 (async () => {
     const response = await feature.getResponse();

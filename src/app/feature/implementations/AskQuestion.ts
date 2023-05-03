@@ -43,11 +43,21 @@ export class AskQuestion extends Feature {
                 res = "Question cannot be processed";
             } else {
                 res = "Similar question:\n";
-                for (let i = 0; i < 3; i++) {
-                    if(i == 2){
-                        res += result[i].question;
-                    } else {
-                        res += result[i].question + "\n";
+                if(result.length >= 3){
+                    for (let i = 0; i < 3; i++) {
+                        if(i == 2){
+                            res += result[i].question;
+                        } else {
+                            res += result[i].question + "\n";
+                        }
+                    }
+                } else {
+                    for (let i = 0; i < result.length; i++) {
+                        if(i == result.length-1){
+                            res += result[i].question;
+                        } else {
+                            res += result[i].question + "\n";
+                        }
                     }
                 }
             }
