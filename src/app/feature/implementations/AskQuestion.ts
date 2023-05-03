@@ -22,10 +22,12 @@ export class AskQuestion extends Feature {
         return data;
     }
 
-    getResponse(): string {
-        let res: string = "";
-        let result : QuestionAndAnswer[] = [];
+
     
+    async getResponse(): Promise<string> {
+        /* Searches question in db */
+        let algorithmResult: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
+        let leveinshteinResult : QuestionAndAnswer[] = [];
         if (this.algorithm == "KMP") {
             this.getQuestionandAnswer().then((questionAndAnswerArray) => {
                 result = knuthMorrisPratt(this.userMsg, questionAndAnswerArray);

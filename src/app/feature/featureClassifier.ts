@@ -57,12 +57,16 @@ export default class FeatureClassifier {
 
 
 // // Example case
-// const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
-const userMessage1 = "Apa IbuKOta Indonesia";
+// const userMessage1 = "Apa IbuKOta Indonesia";
 // let addQuestion: RegExp 
 // = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
 // console.log(addQuestion.exec(userMessage));
-const classifier = new FeatureClassifier(userMessage1, "KMP");
+const userMessage = "06/05/2023";
+const classifier = new FeatureClassifier(userMessage, "KMP");
 const feature = classifier.getFeature();
-console.log(feature.getResponse());
+(async () => {
+    const response = await feature.getResponse();
+    console.log(response); 
+})()
+
 
