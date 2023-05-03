@@ -24,7 +24,7 @@ export class AskQuestion extends Feature {
 
 
     
-    getResponse(): string {
+    async getResponse(): Promise<string> {
         /* Searches question in db */
         let algorithmResult: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
         let leveinshteinResult : QuestionAndAnswer[] = [];

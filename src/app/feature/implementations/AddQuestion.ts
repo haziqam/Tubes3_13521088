@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { Feature } from "../feature";
+import { addQnA } from "../../algorithm/question";
 // import FeatureClassifier from "../featureClassifier";
 
 // const prisma = new PrismaClient();
@@ -39,28 +39,20 @@ export class AddQuestion extends Feature {
         return this.regexMatch[5];
     }
 
-    getResponse(): string {
+    async getResponse(): Promise<string> {
         const question: string = this.extractQuestion();
         const answer: string = this.extractAnswer();
-
-        let successful: boolean = true;
-        /* Adds question and answser to db */
-        // this.addQuestionToDB()
-        //     .catch(e => {
-        //         console.error(e.message);
-        //         successful = false;
-        //     })
-        //     .finally(async () => {
-        //         await prisma.$disconnect();
-        //     });
-
+        let response: string = "";
         
-        if (successful) {
-            return "Pertanyaan " + question + " dengan jawaban " + answer + " berhasil ditambahkan!";
+        try {
+            await addQnA(question, answer);
+            response =  "Pertanyaan " + question + " dengan jawaban " + answer + " berhasil ditambahkan!";
         }
-        else {
-            return "gagal"
+        catch (error){
+            response =  "Pertanyaan gagal ditambahkan.";
         }
+
+        return response;
     }
 }
 

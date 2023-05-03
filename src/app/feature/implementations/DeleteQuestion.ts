@@ -12,7 +12,7 @@ export class DeleteQuestion extends Feature {
         return this.regexMatch[4];
     }
 
-    getResponse(): string {
+    async getResponse(): Promise<string> {
         const question: string = this.getQuestion();
 
         /* Deletes question and answser to db */
