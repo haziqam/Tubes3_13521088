@@ -5,7 +5,7 @@ import { DeleteQuestion } from "./implementations/DeleteQuestion";
 import { Calculator } from "./implementations/Calculator";
 import { GetDate } from "./implementations/GetDate";
 
-class FeatureClassifier {
+export class FeatureClassifier {
     private readonly userMsg: string;
 
     private readonly addQuestion: RegExp 
@@ -52,25 +52,14 @@ class FeatureClassifier {
     }
 }
 
-// Example case
-const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
-const userMessage1 = "Hapus pertanyaan XXX dari database";
-let addQuestion: RegExp 
-= /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
-console.log(addQuestion.exec(userMessage));
-const userMessage2 = "-1 * 2??";
-let calculator: RegExp
-= /(\d+(\.\d+)?|-?\d+(\.\d+)?|[+\-*/^()])/g
-console.log(userMessage2.match(calculator))
-const x = new Calculator(userMessage2, calculator)
-console.log(x.getResponse());
 
-const userMessage3 = "nah gimana Hari   APa 25/802/20237";
-let date: RegExp
-= /^(Hari\s*apa)?\s*(\d{2}\/\d{2}\/\d{4})\s*(\?)?/i;
-console.log(userMessage3.match(date))
-const a = userMessage3.match(date)
-if(a != null){
-    const y = new GetDate(a[2]);
-    console.log(y.getResponse());
-}
+// // Example case
+// const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
+// const userMessage1 = "Hapus pertanyaan XXX dari database";
+// let addQuestion: RegExp 
+// = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
+// console.log(addQuestion.exec(userMessage));
+// const classifier = new FeatureClassifier(userMessage1);
+// const feature = classifier.getFeature();
+// console.log(feature.getResponse());
+
