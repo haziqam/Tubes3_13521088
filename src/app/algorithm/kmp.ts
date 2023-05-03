@@ -25,7 +25,7 @@ function LPS(toMatch: string): number[]{
     return lps;
 }
 
-export async function knuthMorrisPratt(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[] {
+export function knuthMorrisPratt(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[] {
     let found: QuestionAndAnswer[] = [];
     for (let i = 0; i < data.length; i++) {
         let questionLength = data[i].question.length;
@@ -53,8 +53,8 @@ export async function knuthMorrisPratt(pattern: string, data: QuestionAndAnswer[
                 }
             }
         }
-        let percentage = (matches / questionLength) * 100;
-        if (percentage > 30) {
+        let percentage = matches;
+        if (percentage == data[i].question.length) {
             found.push({
                 id: data[i].id,
                 question: data[i].question,

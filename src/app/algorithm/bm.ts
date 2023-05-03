@@ -14,12 +14,12 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
   const patternLength = pattern.length; //m
   const last = badCharacter(patternLower);
   let result: QuestionAndAnswer[] = [];
-  let s = 0;
-
-
+  
+  
   for (let i = 0; i < data.length; i++) {
     const textLower = data[i].question.toLowerCase(); //n
     const textLength = textLower.length;
+    let s = 0;
     let matches = 0;
 
     while (s <= textLength - patternLength) {
@@ -37,7 +37,7 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
       }
     }
 
-    if (matches > 0) {
+    if (matches == 1) {
       result.push({
         id: data[i].id,
         question: data[i].question,
