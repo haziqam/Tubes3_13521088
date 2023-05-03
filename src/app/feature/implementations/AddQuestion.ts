@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Feature } from "../feature";
-import { FeatureClassifier } from "../featureClassifier"
+import FeatureClassifier from "../featureClassifier";
 
 const prisma = new PrismaClient;
 
@@ -65,7 +65,7 @@ export class AddQuestion extends Feature {
 }
 
 const userMsg = "Tambahkan pertanyaan aaaa dengan jawaban bbbbb ke database";
-const classsifier = new FeatureClassifier(userMsg);
+const classsifier = new FeatureClassifier(userMsg, "KMP");
 const feature = classsifier.getFeature();
 console.log(feature.getResponse());
 

@@ -1,6 +1,4 @@
-import { getQnA } from "./question";
-import { foundQuestion } from "./interface";
-import { QuestionAndAnswer } from "./interface";
+import { foundQuestion, QuestionAndAnswer } from "./interface";
 
 
 function LPS(toMatch: string): number[]{
@@ -27,9 +25,8 @@ function LPS(toMatch: string): number[]{
     return lps;
 }
 
-async function KMP(pattern: string): Promise<foundQuestion[]>{
-    let found: foundQuestion[] = [];
-    const data = await getQnA();
+export function knuthMorrisPratt(pattern: string, data:QuestionAndAnswer[]): QuestionAndAnswer{
+    let result: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
     for(let i = 0; i < data.length; i++){
         let questionLength = data[i].question.length;
         let patternLength = pattern.length;
@@ -38,13 +35,11 @@ async function KMP(pattern: string): Promise<foundQuestion[]>{
         let k = 0;
         let j = 0;
         let lps = LPS(pattern);
-        let matches = 0;
         
         while(k < questionLength){ //As long as the text length is not 0
             if (patternLower[k] === questionLower[j]){
                 k++;
                 j++;
-                matches++;
                 if (j === patternLength){ //If it reaches the pattern length, 
                     j = lps[j-1]; 
                 }
@@ -56,19 +51,10 @@ async function KMP(pattern: string): Promise<foundQuestion[]>{
                 }
             }
         }
-        if (matches > 0) {
-            let percentage = (matches / questionLength) * 100;
-            found.push({
-                question: data[i].question,
-                percentage: percentage,
-            });
+        if(j==1){
+            result = data[i];
         }
     }
-    return found;
+    return result;
 }
 
-// KMP("Apa ibutkota indonesia?").then((result) => {
-//     console.log(result);
-//   }).catch((error) => {
-//     console.error(error);
-//   });

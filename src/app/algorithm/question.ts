@@ -1,4 +1,5 @@
 import { QuestionAndAnswer } from "./interface";
+
 export async function getQnA(): Promise<QuestionAndAnswer[]> {
   const res = await fetch(`http://localhost:3000/api/post/getQnA`);
   if (!res.ok) {

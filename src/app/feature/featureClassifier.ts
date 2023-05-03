@@ -1,12 +1,13 @@
 import { Feature } from "./feature";
 import { AddQuestion } from "./implementations/AddQuestion";
-import { AskQuestion } from "./implementations/AskQuesetion";
+import { AskQuestion } from "./implementations/AskQuestion";
 import { DeleteQuestion } from "./implementations/DeleteQuestion";
 import { Calculator } from "./implementations/Calculator";
 import { GetDate } from "./implementations/GetDate";
 
-export class FeatureClassifier {
+export default class FeatureClassifier {
     private readonly userMsg: string;
+    private readonly algorithm: string;
 
     private readonly addQuestion: RegExp 
     = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
@@ -20,8 +21,9 @@ export class FeatureClassifier {
     private readonly date: RegExp
     = /^(Hari\s*apa)?\s*(\d{2}\/\d{2}\/\d{4})\s*(\?)?/i;
 
-    constructor(userMsg: string) {
+    constructor(userMsg: string, algorithm: string) {
         this.userMsg = userMsg;
+        this.algorithm = algorithm;
     }
 
     getFeature(): Feature {
@@ -48,20 +50,19 @@ export class FeatureClassifier {
         /* ... */
 
         // Default case
-        return new AskQuestion();
+        return new AskQuestion(this.userMsg, this.algorithm);
         
     }
 }
 
-export default FeatureClassifier
 
 // // Example case
 // const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
-// const userMessage1 = "Hapus pertanyaan XXX dari database";
+const userMessage1 = "Apa IbuKOta Indonesia";
 // let addQuestion: RegExp 
 // = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) (.*) dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
 // console.log(addQuestion.exec(userMessage));
-// const classifier = new FeatureClassifier(userMessage1);
-// const feature = classifier.getFeature();
-// console.log(feature.getResponse());
+const classifier = new FeatureClassifier(userMessage1, "KMP");
+const feature = classifier.getFeature();
+console.log(feature.getResponse());
 

@@ -3,12 +3,12 @@ import { getQnA } from "./question";
 import { foundQuestion } from "./interface";
 import { QuestionAndAnswer } from "./interface";
 
-async function levenshteinDistance(pattern: string): Promise<QuestionAndAnswer[]>{
+export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer[]{
     /**Measures the minimum number of single-character edits (insertion, deletions, or substitutions) */
     let match: QuestionAndAnswer[] = [];
     let patternLength = pattern.length;
     let patternLower = pattern.toLowerCase();
-    const data = await getQnA();
+
 
     for(let i = 0; i < data.length; i++){
         let question = data[i].question.toLowerCase();

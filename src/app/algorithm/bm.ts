@@ -1,5 +1,4 @@
-import { foundQuestion } from "./interface";
-import { getQnA } from "./question";
+import { foundQuestion, QuestionAndAnswer } from "./interface";
 
 function badCharacter(pattern: string): number[] {
   const last = new Array(256).fill(-1);
@@ -9,18 +8,17 @@ function badCharacter(pattern: string): number[] {
   return last;
 }
 
-async function boyerMoore(pattern: string): Promise<foundQuestion[]> {
+export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): QuestionAndAnswer {
   const patternLower = pattern.toLowerCase();
   const patternLength = pattern.length; //m
   const last = badCharacter(patternLower);
-  const data = await getQnA();
-  const found: foundQuestion[] = [];
-  let s = 0;
+  let result: QuestionAndAnswer = {id: -1, question:"" ,answer:""};
 
   for (let i = 0; i < data.length; i++) {
     const textLower = data[i].question.toLowerCase(); //n
     const textLength = textLower.length;
-    let matches = 0;
+    let s = 0;
+    let percentage = 0;
 
     while (s <= textLength - patternLength) {
       let j = patternLength - 1;
@@ -30,31 +28,25 @@ async function boyerMoore(pattern: string): Promise<foundQuestion[]> {
       }
 
       if (j < 0) {
-        // pattern found
-        matches++;
-        console.log(matches);
         s += patternLength - last[textLower.charCodeAt(s + patternLength)];
-        console.log(s);
+        percentage = (patternLength / textLength) * 100;
       } else {
         s += Math.max(1, j - last[textLower.charCodeAt(s + j)]);
-        console.log(s);
+        percentage = ((patternLength - j - 1) / patternLength) * 100;
       }
     }
 
-    if (matches > 0) {
-      const percentage = (matches / textLength) * 100;
-      found.push({
-        question: data[i].question,
-        percentage: percentage,
-      });
+    if(percentage == 100){
+      result= data[i];
     }
   }
 
-  return found;
+  return result;
 }
 
-boyerMoore("Apa ibutkota indonesia").then((result) => {
-  console.log(result);
-}).catch((error) => {
-  console.error(error);
-});
+
+// boyerMoore("Apa IbuKota Indonesia?").then((result) => {
+//   console.log(result);
+// }).catch((error) => {
+//   console.error(error);
+// });
