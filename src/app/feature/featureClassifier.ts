@@ -35,15 +35,16 @@ export class FeatureClassifier {
             return new DeleteQuestion(match);
         }
 
-        match = this.calculator.exec(this.userMsg);
-        if (match !== null) {
-            return new Calculator(this.userMsg, calculator);
-        }
-
         match = this.date.exec(this.userMsg);
         if (match !== null) {
             return new GetDate(match[2]);
         }
+
+        match = this.calculator.exec(this.userMsg);
+        if (match !== null) {
+            return new Calculator(this.userMsg, this.calculator);
+        }
+
         /* ... */
 
         // Default case
@@ -52,6 +53,7 @@ export class FeatureClassifier {
     }
 }
 
+export default FeatureClassifier
 
 // // Example case
 // const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
