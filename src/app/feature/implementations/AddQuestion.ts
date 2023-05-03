@@ -1,22 +1,22 @@
 import { PrismaClient } from "@prisma/client";
 import { Feature } from "../feature";
-import FeatureClassifier from "../featureClassifier";
+// import FeatureClassifier from "../featureClassifier";
 
-const prisma = new PrismaClient;
+// const prisma = new PrismaClient();
 
 export class AddQuestion extends Feature {
     private readonly regexMatch: string[];
 
-    addQuestionToDB = async () => {
-        const addedQnA = await prisma.questionandAnswer.create({
-            data: {
-                question: this.extractQuestion(),
-                answer: this.extractAnswer()
-            }
+    // addQuestionToDB = async () => {
+    //     const addedQnA = await prisma.questionandAnswer.create({
+    //         data: {
+    //             question: this.extractQuestion(),
+    //             answer: this.extractAnswer()
+    //         }
             
-        });
-        //console.log(addedQnA);
-    }
+    //     });
+    //     //console.log(addedQnA);
+    // }
 
     constructor (regexMatch: string[]) {
         super();
@@ -45,14 +45,14 @@ export class AddQuestion extends Feature {
 
         let successful: boolean = true;
         /* Adds question and answser to db */
-        this.addQuestionToDB()
-            .catch(e => {
-                console.error(e.message);
-                successful = false;
-            })
-            .finally(async () => {
-                await prisma.$disconnect();
-            });
+        // this.addQuestionToDB()
+        //     .catch(e => {
+        //         console.error(e.message);
+        //         successful = false;
+        //     })
+        //     .finally(async () => {
+        //         await prisma.$disconnect();
+        //     });
 
         
         if (successful) {
@@ -64,8 +64,8 @@ export class AddQuestion extends Feature {
     }
 }
 
-const userMsg = "Tambahkan pertanyaan aaaa dengan jawaban bbbbb ke database";
-const classsifier = new FeatureClassifier(userMsg, "KMP");
-const feature = classsifier.getFeature();
-console.log(feature.getResponse());
+// const userMsg = "Tambahkan pertanyaan aaaa dengan jawaban bbbbb ke database";
+// const classsifier = new FeatureClassifier(userMsg, "KMP");
+// const feature = classsifier.getFeature();
+// console.log(feature.getResponse());
 
