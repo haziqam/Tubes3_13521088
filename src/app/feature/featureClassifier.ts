@@ -2,6 +2,8 @@ import { Feature } from "./feature";
 import { AddQuestion } from "./implementations/AddQuestion";
 import { AskQuestion } from "./implementations/AskQuesetion";
 import { DeleteQuestion } from "./implementations/DeleteQuestion";
+import { Calculator } from "./implementations/Calculator";
+import { GetDate } from "./implementations/GetDate";
 
 export class FeatureClassifier {
     private readonly userMsg: string;
@@ -13,10 +15,10 @@ export class FeatureClassifier {
     = /^(hapus|hilangkan) (data |informasi )?(pertanyaan|query) (.*) dari (database|basis data)/i;
 
     private readonly calculator: RegExp
-    = /^fill here/i;
+    = /(\d+(\.\d+)?|-?\d+(\.\d+)?|[+\-*/^()])/g;
 
     private readonly date: RegExp
-    = /^fill here/i;
+    = /^(Hari\s*apa)?\s*(\d{2}\/\d{2}\/\d{4})\s*(\?)?/i;
 
     constructor(userMsg: string) {
         this.userMsg = userMsg;
@@ -33,6 +35,15 @@ export class FeatureClassifier {
             return new DeleteQuestion(match);
         }
 
+        match = this.calculator.exec(this.userMsg);
+        if (match !== null) {
+            return new Calculator(this.userMsg, calculator);
+        }
+
+        match = this.date.exec(this.userMsg);
+        if (match !== null) {
+            return new GetDate(match[2]);
+        }
         /* ... */
 
         // Default case
@@ -40,6 +51,7 @@ export class FeatureClassifier {
         
     }
 }
+
 
 // // Example case
 // const userMessage = "Tambahkan pertanyaan apa ibukota Indonesia dengan jawaban YYY ke dalam database.";
@@ -50,3 +62,4 @@ export class FeatureClassifier {
 // const classifier = new FeatureClassifier(userMessage1);
 // const feature = classifier.getFeature();
 // console.log(feature.getResponse());
+
