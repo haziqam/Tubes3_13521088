@@ -4,6 +4,7 @@ import { AskQuestion } from "./implementations/AskQuestion";
 import { DeleteQuestion } from "./implementations/DeleteQuestion";
 import { Calculator } from "./implementations/Calculator";
 import { GetDate } from "./implementations/GetDate";
+import { Help } from "./implementations/Help";
 
 export default class FeatureClassifier {
     private readonly userMsg: string;
@@ -20,6 +21,9 @@ export default class FeatureClassifier {
 
     private readonly date: RegExp
     = /^(Hari\s*apa)?\s*(\d{2}\/\d{2}\/\d{4})\s*(\?)?/i;
+
+    private readonly help: RegExp
+    = /^help$/;
 
     constructor(userMsg: string, algorithm: string) {
         this.userMsg = userMsg;
@@ -55,6 +59,10 @@ export default class FeatureClassifier {
             }
         }
 
+        match = this.help.exec(this.userMsg);
+        if (match !== null) {
+            return new Help();
+        }
         /* ... */
 
         // Default case
