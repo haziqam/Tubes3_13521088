@@ -4,6 +4,7 @@ import FeatureClassifier from "./feature/featureClassifier";
 import Question from "./components/question";
 import { addChat, createRoom, getAllRoom, getRoomChatHistory } from "./request/saveChat";
 import { chatRoom } from "./algorithm/interface";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface Questions {
   id: number;
@@ -58,6 +59,9 @@ const Home = () => {
   
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    if(!roomId){
+      create();
+    }
     event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
