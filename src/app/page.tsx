@@ -1,11 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import FeatureClassifier from "./feature/featureClassifier";
-import SideBar from "./components/sideBar";
-import Answer from "./components/answer";
 import Question from "./components/question";
-import Search from "./components/search";
 import { addChat, createRoom, getAllRoom, getRoomChatHistory } from "./request/saveChat";
 import { chatRoom } from "./algorithm/interface";
 
@@ -45,13 +41,13 @@ const Home = () => {
     };
     getMessages();
   }, [roomId]);
-  console.log(messages);
+
 
   useEffect(() => {
     if (!messages) {
       return;
     }
-    const chatHistory = messages.chatHistory || [];
+    const chatHistory = messages?.messages || [];
     const newQuestions = chatHistory.map((chatHistory) => ({
       id: chatHistory.messageId,
       text: chatHistory.question,
@@ -59,8 +55,8 @@ const Home = () => {
     }));
     setQuestions(newQuestions);
   }, [messages]);
-  
   console.log(questions);
+  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -136,6 +132,7 @@ const Home = () => {
     <div className="fixed w-screen h-screen background-color flex">
       <div className="fixed w-64 h-screen sidebar-purple">
         <div className="m-4 h-96">
+        
           <button
             type="button"
             className="py-2.5 px-5 mr-2 mb-2 w-56 text-xs font-medium text-purple-700 bg-transparent rounded-lg border border-purple-700 focus:ring-purple-500 focus:border-purple-500 block hover:border-purple-950 hover:text-purple-950"
@@ -143,7 +140,7 @@ const Home = () => {
           >
             + New Chat
           </button>
-          <div className="flex-col justify-center h-96 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
+          <div className="flex-col justify-center h-72 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
             {room.map((r) => (
               <div
                 key={r.roomId}

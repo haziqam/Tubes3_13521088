@@ -21,9 +21,8 @@ import { getRoomChatHistory } from "../request/saveChat";
 // create();
 
 
-// async function getRoom(){
-//   const data = await getRoomChatHistory(1);
-//   console.log(data);
-
-// }
-// getRoom();
+async function getRoom(){
+  const data = await getRoomChatHistory(24);
+  console.log(data.messages);
+}
+getRoom();
