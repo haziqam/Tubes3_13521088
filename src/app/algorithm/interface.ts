@@ -21,3 +21,9 @@ export interface Messages {
     answer: string,
     chatHistoryRoomId: number
 }  
+
+export interface chatRoom{
+    roomId: number,
+    roomName: string,
+    messages: Messages[]
+}

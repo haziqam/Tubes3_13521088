@@ -25,7 +25,7 @@ export class AskQuestion extends Feature {
 
     
     async getResponse(): Promise<string> {
-        let res: string = "tes";
+        let res: string = "";
         let result: QuestionAndAnswer[] = [];
 
         if (this.algorithm == "KMP") {
@@ -33,16 +33,16 @@ export class AskQuestion extends Feature {
         } else if (this.algorithm == "BM") {
             result = boyerMoore(this.userMsg, await this.getQuestionandAnswer());
         } else {
-            res = "Invalid algorithm type";
+            res = "Kamu belum memilih algoritma";
             return res;
         }
 
         if (result.length == 0) {
             result = await levenshteinDistance(this.userMsg, await this.getQuestionandAnswer());
             if (result.length == 0) {
-                res = "Question cannot be processed";
+                res = "Pertanyaan tidak dapat diproses";
             } else {
-                res = "Similar question:\n";
+                res = "Pertanyaan yang mirip:\n";
                 if(result.length >= 3){
                     for (let i = 0; i < 3; i++) {
                         if(i == 2){
