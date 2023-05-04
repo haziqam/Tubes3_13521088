@@ -45,16 +45,17 @@ const Home = () => {
     };
     getMessages();
   }, [roomId]);
+  console.log(messages);
 
   useEffect(() => {
     if (!messages) {
       return;
     }
     const chatHistory = messages.chatHistory || [];
-    const newQuestions = chatHistory.map((message) => ({
-      id: message.messageId,
-      text: message.question,
-      responses: [message.answer],
+    const newQuestions = chatHistory.map((chatHistory) => ({
+      id: chatHistory.messageId,
+      text: chatHistory.question,
+      responses: [chatHistory.answer],
     }));
     setQuestions(newQuestions);
   }, [messages]);
