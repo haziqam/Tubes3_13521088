@@ -28,7 +28,8 @@ const Home = () => {
   }, []);
 
   async function create() {
-    await createRoom();
+    const newRoom = await createRoom();
+    setRoom(prevRooms => [newRoom, ...prevRooms]);
   }
 
   useEffect(() => {
@@ -57,6 +58,9 @@ const Home = () => {
   }, [messages]);  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    if(!roomId){
+      create();
+    }
     event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
@@ -134,7 +138,7 @@ const Home = () => {
                       : "text-purple-950"
                   }`}
                 >
-                  Room {r.roomId}
+                  Room {r.roomName}
                 </button>
               </div>
             ))}
