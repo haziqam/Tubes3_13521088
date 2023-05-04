@@ -6,7 +6,7 @@ import SideBar from "./components/sideBar";
 import Answer from "./components/answer";
 import Question from "./components/question";
 import Search from "./components/search";
-import { addChat, createRoom, getAllRoom, getRoomChatHistory } from "./request/saveChat";
+import { addChat, createRoom, getAllRoom } from "./request/saveChat";
 import { chatRoom } from "./algorithm/interface";
 
 export interface Questions {
@@ -16,7 +16,6 @@ export interface Questions {
 }
 
 const Home = () => {
-
   const [questions, setQuestions] = useState<Questions[]>([]);
   const [messages, setMessages] = useState<chatRoom>();
   const [room, setRoom] = useState<chatRoom[]>([]);
@@ -32,28 +31,9 @@ const Home = () => {
     getRooms();
   }, []);
 
-  useEffect(() => {
-    const getMessages = async () => {
-      const messages = await getRoomChatHistory(roomId!);
-      setMessages(messages);
-    };
-    getMessages();
-  }, [roomId]);
-  
-  // useEffect(() => {
-  //   const chatHistory = messages?.chatHistory || [];
-  //   const newQuestions = chatHistory.map((message) => ({
-  //     id: message.messageId,
-  //     text: message.question,
-  //     responses: [message.answer],
-  //   }));
-  //   setQuestions(newQuestions);
-  // }, [messages]);
-  
-  async function create(){
+  async function create() {
     await createRoom();
   }
-  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,12 +58,12 @@ const Home = () => {
       //   if (i != 0) response += ", ";
       //   response += await resp;
       // }
-    };
+    }
 
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
-      responses: ["Processing..."]
+      responses: ["Processing..."],
     };
     setQuestions([...questions, newQuestion]); // Add new question to state and show immediately
     setInputValue("");
@@ -96,12 +76,12 @@ const Home = () => {
         if (i !== 0) {
           newQuestion.responses[newQuestion.responses.length - 1] += ", ";
           newQuestion.responses[newQuestion.responses.length - 1] += response;
-        }
-        else{
+        } else {
           newQuestion.responses[newQuestion.responses.length - 1] = response;
         }
       } catch (error) {
-        newQuestion.responses[newQuestion.responses.length - 1] = "Error occurred while processing your question.";
+        newQuestion.responses[newQuestion.responses.length - 1] =
+          "Error occurred while processing your question.";
       }
     }
     setQuestions((prevQuestions) => {
@@ -114,9 +94,12 @@ const Home = () => {
       return updatedQuestions;
     });
     // roomId nya disesuaiin, terganting side bar
-    await addChat(inputElement.value, newQuestion.responses[newQuestion.responses.length  - 1], 1);
+    await addChat(
+      inputElement.value,
+      newQuestion.responses[newQuestion.responses.length - 1],
+      1
+    );
   };
-  
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -139,7 +122,7 @@ const Home = () => {
                 key={r.roomId}
                 className="py-2.5 px-5 mr-2 mb-2 w-52 h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded"
                 onClick={() => setRoomId(r.roomId)}
-                >
+              >
                 <button className="text-center truncate w-full text-white">
                   Room {r.roomId}
                 </button>
@@ -213,22 +196,28 @@ const Home = () => {
             responses={q.responses}
           />
         ))}
+
         <form method="GET" onSubmit={handleSubmit}>
-          <div className="fixed bottom-5 text-purple-600 w-10/12 p-2.5 flex">
-            <input
-              type="text"
-              name="question"
-              className="bg-purple-50 border border-purple-300 text-purple-900 text-sm rounded-lg block w-8/12 p-2.5"
-              placeholder="Ask gojo anything..."
-              value={inputValue}
-              onChange={handleChange}
-            />
-            <button
-              type="submit"
-              className="bg-purple-600 text-white ml-2 rounded-lg px-3 py-1"
-            >
-              Send
-            </button>
+          <div className="fixed bottom-5 text-purple-600 w-10/12 p-2.5 flex-col">
+            <label className="block text-gray-700 text-sm mb-2">
+              Ketik 'help' untuk cara penggunaan
+            </label>
+            <div className="flex">
+              <input
+                type="text"
+                name="question"
+                className="bg-purple-50 border border-purple-300 text-purple-900 text-sm rounded-lg block w-8/12 p-2.5"
+                placeholder="Ask gojo anything..."
+                value={inputValue}
+                onChange={handleChange}
+              />
+              <button
+                type="submit"
+                className="bg-purple-600 text-white ml-2 rounded-lg px-3 py-1"
+              >
+                Send
+              </button>
+            </div>
           </div>
         </form>
       </div>

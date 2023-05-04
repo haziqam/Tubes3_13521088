@@ -7,9 +7,9 @@ import { createRoom } from "../request/saveChat";
 //     return data;
 // }
 
-async function create(){
-  await createRoom();
-}
+// async function create(){
+//   await createRoom();
+// }
 
 // getRoom().then((data) => {
 //     console.log(data); // or update state or do something with the data
@@ -17,7 +17,7 @@ async function create(){
 //     console.error(error);
 //   });
 // console.log(getRoom.length);
-create();
+// create();
 
 
 // async function getRoom(){
