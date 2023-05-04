@@ -97,7 +97,7 @@ const Home = () => {
     await addChat(
       inputElement.value,
       newQuestion.responses[newQuestion.responses.length - 1],
-      1
+      roomId!
     );
   };
 
@@ -120,7 +120,7 @@ const Home = () => {
             {room.map((r) => (
               <div
                 key={r.roomId}
-                className="py-2.5 px-5 mr-2 mb-2 w-11/12 items-center h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded"
+                className="py-2.5 px-5 mr-2 mb-2 w-11/12 items-center h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded active:bg-purple-900"
                 onClick={() => setRoomId(r.roomId)}
               >
                 <button className="text-center truncate w-full text-white">
