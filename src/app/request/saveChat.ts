@@ -1,7 +1,7 @@
 import { Messages, chatRoom } from "../algorithm/interface";
 
 export async function getAllRoom(): Promise<chatRoom[]> {
-  const res = await fetch(`http://localhost:3000/api/post/getRoom`);
+  const res = await fetch(`/api/post/getRoom`);
   if (!res.ok) {
     throw new Error('Failed to fetch data from API');
   }
@@ -10,7 +10,7 @@ export async function getAllRoom(): Promise<chatRoom[]> {
 }
 
 export async function getRoomChatHistory(roomId: number): Promise<chatRoom>{
-  const res = await fetch(`http://localhost:3000/api/post/getChatHistory?roomId=${roomId}`);
+  const res = await fetch(`/api/post/getChatHistory?roomId=${roomId}`);
   if (!res.ok) {
     throw new Error('Failed to fetch data from API');
   }
@@ -22,7 +22,7 @@ export async function getRoomChatHistory(roomId: number): Promise<chatRoom>{
 export async function createRoom(): Promise<chatRoom> {
   const chatRoom = await getAllRoom();
   const len = chatRoom.length;
-  const res = await fetch(`http://localhost:3000/api/post/createRoom`, {
+  const res = await fetch(`/api/post/createRoom`, {
     method: 'POST',
     body: JSON.stringify({
       
@@ -46,7 +46,7 @@ export async function createRoom(): Promise<chatRoom> {
  */
 export async function addChat(question: string, answer: string, chatHistoryRoomId: number): Promise<Messages> {
   // Memanggil API addQnA dengan memasukkan parameter question dan answer ke dalam NextApiRequest body
-  const res = await fetch(`http://localhost:3000/api/post/addChat`, {
+  const res = await fetch(`/api/post/addChat`, {
     method: 'POST',
     body: JSON.stringify({
       param:

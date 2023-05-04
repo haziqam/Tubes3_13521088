@@ -1,7 +1,7 @@
 import { QuestionAndAnswer } from "../algorithm/interface";
 
 export async function getQnA(): Promise<QuestionAndAnswer[]> {
-  const res = await fetch(`http://localhost:3000/api/post/getQnA`);
+  const res = await fetch(`/api/post/getQnA`);
   if (!res.ok) {
     throw new Error('Failed to fetch data from API');
   }
@@ -17,7 +17,7 @@ export async function getQnA(): Promise<QuestionAndAnswer[]> {
  */
 export async function addQnA(question: string, answer: string): Promise<QuestionAndAnswer> {
   // Memanggil API addQnA dengan memasukkan parameter question dan answer ke dalam NextApiRequest body
-  const res = await fetch(`http://localhost:3000/api/post/addQnA`, {
+  const res = await fetch(`/api/post/addQnA`, {
               method: 'POST',
               body: JSON.stringify({param: 
                 {
@@ -39,7 +39,7 @@ export async function addQnA(question: string, answer: string): Promise<Question
 
 export async function updateAnswer(id: number, newAnswer: string): Promise<QuestionAndAnswer> {
     // Memanggil API updateAnswer dengan memasukkan parameter id dan newAnswer ke dalam NextApiRequest body
-    const res = await fetch(`http://localhost:3000/api/post/updateAnswer`, {
+    const res = await fetch(`/api/post/updateAnswer`, {
       method: 'PUT',
       body: JSON.stringify({param: 
         {
@@ -62,7 +62,7 @@ export async function updateAnswer(id: number, newAnswer: string): Promise<Quest
 
 export async function deleteQnA(id: number): Promise<QuestionAndAnswer> {
     // Memanggil API deleteAnswer dengan memasukkan parameter id dan newAnswer ke dalam NextApiRequest body
-    const res = await fetch(`http://localhost:3000/api/post/deleteQnA`, {
+    const res = await fetch(`/api/post/deleteQnA`, {
       method: 'PUT',
       body: JSON.stringify({param: 
         {
