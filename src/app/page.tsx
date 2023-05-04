@@ -45,7 +45,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!messages) {
-      return;
+      <div>Loading</div>
     }
     const chatHistory = messages?.messages || [];
     const newQuestions = chatHistory.map((chatHistory) => ({
@@ -91,7 +91,7 @@ const Home = () => {
     setQuestions([...questions, newQuestion]); // Add new question to state and show immediately
     setInputValue("");
     for (let i = 0; i < inputArray.length; i++) {
-      const featClassifier = new FeatureClassifier(inputArray[i], "KMP");
+      const featClassifier = new FeatureClassifier(inputArray[i], algorithm);
       const feat = featClassifier.getFeature();
       const resp: string | Promise<string> = feat.getResponse();
       try {
@@ -140,7 +140,7 @@ const Home = () => {
           >
             + New Chat
           </button>
-          <div className="flex-col justify-center h-72 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
+          <div className="flex-col justify-center h-64 overflow-x-hidden scroll-auto overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
             {room.map((r) => (
               <div
                 key={r.roomId}
@@ -218,8 +218,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className=" ml-96 mt-5 h-5/6 w-7/12 space-y-3 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
-        {questions.map((q) => (
+      <div className=" ml-96 mt-5 h-5/6 w-7/12 space-y-5 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
+      {questions.map((q) => (
           <Question
             key={q.id}
             id={q.id}
@@ -227,7 +227,6 @@ const Home = () => {
             responses={q.responses}
           />
         ))}
-
         <form method="GET" onSubmit={handleSubmit}>
           <div className="fixed bottom-5 text-purple-600 w-10/12 p-2.5 flex-col">
             <label className="block text-purple-950 text-sm mb-2">
