@@ -116,11 +116,11 @@ const Home = () => {
           >
             + New Chat
           </button>
-          <div className="flex-col items-center h-96 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
+          <div className="flex-col justify-center h-96 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
             {room.map((r) => (
               <div
                 key={r.roomId}
-                className="py-2.5 px-5 mr-2 mb-2 w-52 h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded"
+                className="py-2.5 px-5 mr-2 mb-2 w-11/12 items-center h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded"
                 onClick={() => setRoomId(r.roomId)}
               >
                 <button className="text-center truncate w-full text-white">
@@ -132,58 +132,65 @@ const Home = () => {
         </div>
         <hr className="w-56 h-0.5 mx-auto my-4 bg-purple-900 border-0 rounded md:my-4 dark:bg-gray-700" />
         <div className="ml-4 text-purple-950">Algorithm</div>
-        <div className="ml-1 flex gap-10">
-          <div className="inline-flex items-center">
-            <label
-              className="relative flex cursor-pointer items-center rounded-full p-3"
-              data-ripple-dark="true"
-            >
-              <input
-                id="html"
-                name="type"
-                type="radio"
-                className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-purple-500 text-purple-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
-                onChange={() => setAlgorithm("KMP")}
-              />
-              <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-purple-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3.5 w-3.5"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                >
-                  <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                </svg>
-              </div>
-            </label>
-            <label className="mt-px cursor-pointer select-none text-purple-900">
-              KMP
-            </label>
+        <div className="">
+          <div className="ml-1 flex gap-10">
+            <div className="inline-flex items-center">
+              <label
+                className="relative flex cursor-pointer items-center rounded-full p-3"
+                data-ripple-dark="true"
+              >
+                <input
+                  id="html"
+                  name="type"
+                  type="radio"
+                  className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-purple-500 text-purple-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
+                  onChange={() => setAlgorithm("KMP")}
+                />
+                <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-purple-500 opacity-0 transition-opacity peer-checked:opacity-100">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3.5 w-3.5"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                  >
+                    <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+                  </svg>
+                </div>
+              </label>
+              <label className="mt-px cursor-pointer select-none text-purple-900">
+                KMP
+              </label>
+            </div>
+            <div className="inline-flex items-center">
+              <label
+                className="relative flex cursor-pointer items-center rounded-full p-3"
+                data-ripple-dark="true"
+              >
+                <input
+                  id="react"
+                  name="type"
+                  type="radio"
+                  className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-purple-500 text-purple-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
+                  onChange={() => setAlgorithm("BM")}
+                />
+                <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-purple-500 opacity-0 transition-opacity peer-checked:opacity-100">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3.5 w-3.5"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                  >
+                    <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+                  </svg>
+                </div>
+              </label>
+              <label className="mt-px cursor-pointer  text-purple-900">
+                BM
+              </label>
+            </div>
           </div>
-          <div className="inline-flex items-center">
-            <label
-              className="relative flex cursor-pointer items-center rounded-full p-3"
-              data-ripple-dark="true"
-            >
-              <input
-                id="react"
-                name="type"
-                type="radio"
-                className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-purple-500 text-purple-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
-                onChange={() => setAlgorithm("BM")}
-              />
-              <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-purple-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3.5 w-3.5"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                >
-                  <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                </svg>
-              </div>
-            </label>
-            <label className="mt-px cursor-pointer  text-purple-900">BM</label>
+          <div className="ml-4 text-sm text-purple-950">
+          <div> Tubes3_13521088 </div>
           </div>
         </div>
       </div>
@@ -199,7 +206,7 @@ const Home = () => {
 
         <form method="GET" onSubmit={handleSubmit}>
           <div className="fixed bottom-5 text-purple-600 w-10/12 p-2.5 flex-col">
-            <label className="block text-gray-700 text-sm mb-2">
+            <label className="block text-purple-950 text-sm mb-2">
               Ketik 'help' untuk cara penggunaan
             </label>
             <div className="flex">
