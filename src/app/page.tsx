@@ -29,6 +29,7 @@ const Home = () => {
 
   async function create() {
     const newRoom = await createRoom();
+    console.log(newRoom.name)
     setRoom(prevRooms => [newRoom, ...prevRooms]);
   }
 
@@ -100,7 +101,6 @@ const Home = () => {
       return updatedQuestions;
     });
     // roomId nya disesuaiin, terganting side bar
-    console.log (inputElement.value);
     await addChat(
       newQuestion.text,
       newQuestion.responses[newQuestion.responses.length - 1],
@@ -132,13 +132,13 @@ const Home = () => {
                 onClick={() => setRoomId(r.roomId)}
               >
                 <button
-                  className={`text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate ${
+                  className={`text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium rounded truncate ${
                     roomId === r.roomId
-                      ? "bg-purple-950 text-white"
+                      ? "text-white bg-purple-950"
                       : "text-purple-950"
                   }`}
                 >
-                  Room {r.roomName}
+                  {r.name}
                 </button>
               </div>
             ))}
@@ -204,7 +204,7 @@ const Home = () => {
             </div>
           </div>
           <div className="ml-4 text-sm text-purple-950">
-          <div> Tubes3_13521088 </div>
+          <div className="fixed bottom-2">Tubes3_13521088</div>
           </div>
         </div>
       </div>
