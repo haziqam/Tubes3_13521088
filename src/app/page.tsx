@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from "react";
-import axios from "axios";
 import FeatureClassifier from "./feature/featureClassifier";
 import SideBar from "./components/sideBar";
 import Answer from "./components/answer";
@@ -42,16 +41,44 @@ const Home = () => {
       //   response += await resp;
       // }
     };
+
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
-      responses: [response],
+      responses: ["Processing..."]
     };
-    // roomId nya disesuaiin, terganting side bar
-    await addChat(inputElement.value, response, 1);
-    setQuestions([...questions, newQuestion]);
+    setQuestions([...questions, newQuestion]); // Add new question to state and show immediately
     setInputValue("");
+    for (let i = 0; i < inputArray.length; i++) {
+      const featClassifier = new FeatureClassifier(inputArray[i], "KMP");
+      const feat = featClassifier.getFeature();
+      const resp: string | Promise<string> = feat.getResponse();
+      try {
+        const response = await resp;
+        if (i !== 0) {
+          newQuestion.responses[newQuestion.responses.length - 1] += ", ";
+          newQuestion.responses[newQuestion.responses.length - 1] += response;
+        }
+        else{
+          newQuestion.responses[newQuestion.responses.length - 1] = response;
+        }
+      } catch (error) {
+        newQuestion.responses[newQuestion.responses.length - 1] = "Error occurred while processing your question.";
+      }
+    }
+    setQuestions((prevQuestions) => {
+      const updatedQuestions = prevQuestions.map((q) => {
+        if (q.id === newQuestion.id) {
+          return newQuestion;
+        }
+        return q;
+      });
+      return updatedQuestions;
+    });
+    // roomId nya disesuaiin, terganting side bar
+    await addChat(inputElement.value, newQuestion.responses[newQuestion.responses.length  - 1], 1);
   };
+  
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
