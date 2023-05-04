@@ -24,24 +24,6 @@ const Home = () => {
     ) as HTMLInputElement;
     // algorithm nya disesuaiin, terganting side bar
     const inputArray = (inputElement.value).split('dan');
-    let response = "";
-    for (let i = 0; i < inputArray.length; i++){
-      const featClassifier = new FeatureClassifier(inputArray[i], "KMP");
-      const feat = featClassifier.getFeature();
-      const resp = await feat.getResponse();
-      if (i != 0) response += ", ";
-      response += resp;
-      // const resp: string | Promise<string> = feat.getResponse();
-      // if(typeof (resp) === 'string'){
-      //   if (i != 0) response += ", ";
-      //   response += resp;
-      // }
-      // else{
-      //   if (i != 0) response += ", ";
-      //   response += await resp;
-      // }
-    };
-
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,

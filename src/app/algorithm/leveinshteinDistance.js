@@ -29,11 +29,11 @@ function levenshteinDistance(pattern, data) {
             }
         }
         var percentage = (1 - getDistance[patternLength][questionLength] / Math.max(patternLength, questionLength)) * 100;
-        if (percentage >= 50 && percentage <= 100) {
+        if (percentage >= 50) {
             bestMatch.push({ question: data[i].id, percentage: percentage });
         }
-        bestMatch.sort(function (a, b) { return b.percentage - a.percentage; });
     }
+    bestMatch.sort(function (a, b) { return b.percentage - a.percentage; });
     for (var i = 0; i < bestMatch.length; i++) {
         for (var j = 0; j < data.length; j++) {
             if (data[j].id == bestMatch[i].question) {

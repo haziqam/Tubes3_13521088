@@ -23,7 +23,7 @@ export default class FeatureClassifier {
     = /^(Hari\s*apa)?\s*(\d{2}\/\d{2}\/\d{4})\s*(\?)?/i;
 
     private readonly help: RegExp
-    = /^help$/;
+    = /^help$/i;
 
     constructor(userMsg: string, algorithm: string) {
         this.userMsg = userMsg;
