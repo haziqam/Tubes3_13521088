@@ -29,7 +29,9 @@ const Home = () => {
   }, []);
 
   async function create() {
-    await createRoom();
+    const newRoom = await createRoom();
+    console.log(newRoom.name)
+    setRoom(prevRooms => [newRoom, ...prevRooms]);
   }
 
   useEffect(() => {
@@ -54,9 +56,9 @@ const Home = () => {
       text: chatHistory.question,
       responses: [chatHistory.answer],
     }));
-    setQuestions(newQuestions);
+    setQuestions(newQuestions); 
   }, [messages]);
-  
+ 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     if(!roomId){
@@ -66,26 +68,7 @@ const Home = () => {
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
-    // algorithm nya disesuaiin, terganting side bar
-    const inputArray = inputElement.value.split("dan");
-    let response = "";
-    for (let i = 0; i < inputArray.length; i++) {
-      const featClassifier = new FeatureClassifier(inputArray[i], algorithm);
-      const feat = featClassifier.getFeature();
-      const resp = await feat.getResponse();
-      if (i != 0) response += ", ";
-      response += resp;
-      // const resp: string | Promise<string> = feat.getResponse();
-      // if(typeof (resp) === 'string'){
-      //   if (i != 0) response += ", ";
-      //   response += resp;
-      // }
-      // else{
-      //   if (i != 0) response += ", ";
-      //   response += await resp;
-      // }
-    }
-
+    const inputArray = inputElement.value.split(" dan ");
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
@@ -121,7 +104,7 @@ const Home = () => {
     });
     // roomId nya disesuaiin, terganting side bar
     await addChat(
-      inputElement.value,
+      newQuestion.text,
       newQuestion.responses[newQuestion.responses.length - 1],
       roomId!
     );
@@ -150,8 +133,14 @@ const Home = () => {
                 className=""
                 onClick={() => setRoomId(r.roomId)}
               >
-                <button className="text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate text-purple-950 focus:bg-purple-950 focus:text-white">
-                  Room {r.roomId}
+                <button
+                  className={`text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium rounded truncate ${
+                    roomId === r.roomId
+                      ? "text-white bg-purple-950"
+                      : "text-purple-950"
+                  }`}
+                >
+                  {r.name}
                 </button>
               </div>
             ))}
@@ -217,7 +206,7 @@ const Home = () => {
             </div>
           </div>
           <div className="ml-4 text-sm text-purple-950">
-          <div> Tubes3_13521088 </div>
+          <div className="fixed bottom-2">Tubes3_13521088</div>
           </div>
         </div>
       </div>

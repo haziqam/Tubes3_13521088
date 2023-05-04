@@ -24,6 +24,6 @@ export interface Messages {
 
 export interface chatRoom{
     roomId: number,
-    roomName: string,
+    name: string,
     messages: Messages[]
 }
