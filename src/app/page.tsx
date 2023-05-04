@@ -127,7 +127,13 @@ const Home = () => {
                 className=""
                 onClick={() => setRoomId(r.roomId)}
               >
-                <button className="text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate text-purple-950 focus:bg-purple-950 focus:text-white">
+                <button
+                  className={`text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate ${
+                    roomId === r.roomId
+                      ? "bg-purple-950 text-white"
+                      : "text-purple-950"
+                  }`}
+                >
                   Room {r.roomId}
                 </button>
               </div>
