@@ -124,7 +124,7 @@ const Home = () => {
             className="py-2.5 px-5 mr-2 mb-2 w-56 text-xs font-medium text-purple-700 bg-transparent rounded-lg border border-purple-700 focus:ring-purple-500 focus:border-purple-500 block hover:border-purple-950 hover:text-purple-950"
             onClick={create}
           >
-            + New Chat
+            + Percakapan Baru
           </button>
           <div className="flex-col justify-center h-64 overflow-x-hidden scroll-auto overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-violet-600">
             {room.map((r) => (
@@ -147,7 +147,7 @@ const Home = () => {
           </div>
         </div>
         <hr className="w-56 h-0.5 mx-auto my-4 bg-purple-900 border-0 rounded md:my-4 dark:bg-gray-700" />
-        <div className="ml-4 text-purple-950">Algorithm</div>
+        <div className="ml-4 text-purple-950">Algoritma</div>
         <div className="">
           <div className="ml-1 flex gap-10">
             <div className="inline-flex items-center">
