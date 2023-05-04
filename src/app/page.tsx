@@ -48,7 +48,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!messages) {
-      <div>Loading</div>
+      return;
     }
     const chatHistory = messages?.messages || [];
     const newQuestions = chatHistory.map((chatHistory) => ({
@@ -62,9 +62,11 @@ const Home = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     if(!roomId){
-      create();
-    }
-    event.preventDefault();
+      toast.warning("Anda belum memilih ruang percakapan", {
+        position: toast.POSITION.TOP_CENTER,
+    });
+    } else {
+      event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
@@ -108,6 +110,7 @@ const Home = () => {
       newQuestion.responses[newQuestion.responses.length - 1],
       roomId!
     );
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
