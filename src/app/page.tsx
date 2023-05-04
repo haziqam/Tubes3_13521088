@@ -120,10 +120,10 @@ const Home = () => {
             {room.map((r) => (
               <div
                 key={r.roomId}
-                className="py-2.5 px-5 mr-2 mb-2 w-11/12 items-center h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded active:bg-purple-900"
+                className=""
                 onClick={() => setRoomId(r.roomId)}
               >
-                <button className="text-center truncate w-full text-white">
+                <button className="text-center py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate text-purple-950 focus:bg-purple-950 focus:text-white">
                   Room {r.roomId}
                 </button>
               </div>
