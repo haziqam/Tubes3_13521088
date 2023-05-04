@@ -6,7 +6,7 @@ import SideBar from "./components/sideBar";
 import Answer from "./components/answer";
 import Question from "./components/question";
 import Search from "./components/search";
-import { addChat, createRoom, getAllRoom } from "./request/saveChat";
+import { addChat, createRoom, getAllRoom, getRoomChatHistory } from "./request/saveChat";
 import { chatRoom } from "./algorithm/interface";
 
 export interface Questions {
@@ -16,9 +16,11 @@ export interface Questions {
 }
 
 const Home = () => {
+
   const [questions, setQuestions] = useState<Questions[]>([]);
+  const [messages, setMessages] = useState<chatRoom>();
   const [room, setRoom] = useState<chatRoom[]>([]);
-  const [roomId, setRoomId] = useState<chatRoom>();
+  const [roomId, setRoomId] = useState<number>();
   const [inputValue, setInputValue] = useState("");
   const [algorithm, setAlgorithm] = useState("");
 
@@ -30,7 +32,29 @@ const Home = () => {
     getRooms();
   }, []);
 
-  console.log(room)
+  useEffect(() => {
+    const getMessages = async () => {
+      const messages = await getRoomChatHistory(roomId!);
+      setMessages(messages);
+    };
+    getMessages();
+  }, [roomId]);
+  
+  // useEffect(() => {
+  //   const chatHistory = messages?.chatHistory || [];
+  //   const newQuestions = chatHistory.map((message) => ({
+  //     id: message.messageId,
+  //     text: message.question,
+  //     responses: [message.answer],
+  //   }));
+  //   setQuestions(newQuestions);
+  // }, [messages]);
+  
+  async function create(){
+    await createRoom();
+  }
+  
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
@@ -40,7 +64,7 @@ const Home = () => {
     const inputArray = inputElement.value.split("dan");
     let response = "";
     for (let i = 0; i < inputArray.length; i++) {
-      const featClassifier = new FeatureClassifier(inputArray[i], "KMP");
+      const featClassifier = new FeatureClassifier(inputArray[i], algorithm);
       const feat = featClassifier.getFeature();
       const resp: string | Promise<string> = feat.getResponse();
       if (typeof resp === "string") {
@@ -59,7 +83,7 @@ const Home = () => {
 
     
     // roomId nya disesuaiin, terganting side bar
-    await addChat(inputElement.value, response, 1);
+    await addChat(inputElement.value, response, roomId!);
     setQuestions([...questions, newQuestion]);
     setInputValue("");
   };
@@ -75,7 +99,7 @@ const Home = () => {
           <button
             type="button"
             className="py-2.5 px-5 mr-2 mb-2 w-56 text-xs font-medium text-purple-700 bg-transparent rounded-lg border border-purple-700 focus:ring-purple-500 focus:border-purple-500 block hover:border-purple-950 hover:text-purple-950"
-            onClick={createRoom}
+            onClick={create}
           >
             + New Chat
           </button>
@@ -84,7 +108,8 @@ const Home = () => {
               <div
                 key={r.roomId}
                 className="py-2.5 px-5 mr-2 mb-2 w-52 h-9 text-xs font-medium  bg-purple-400 hover:bg-purple-700 text-white 4 rounded"
-              >
+                onClick={() => setRoomId(r.roomId)}
+                >
                 <button className="text-center truncate w-full text-white">
                   Room {r.roomId}
                 </button>

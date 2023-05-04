@@ -9,34 +9,25 @@ export async function getAllRoom(): Promise<chatRoom[]> {
   return data;
 }
 
-// export async function getRoomById(id: number): Promise<chatRoom> {
-//   const res = await fetch(`http://localhost:3000/api/post/getRoomById?roomId=${id}`);
+// export async function getRoomChatHistory(roomId: number): Promise<chatRoom>{
+//   const res = await fetch(`http://localhost:3000/api/post/getChatHistory?roomId=${roomId}`);
 //   if (!res.ok) {
 //     throw new Error('Failed to fetch data from API');
 //   }
-//   const room = await prisma.post.findUnique({
-//     where: {
-//       id,
-//     },
-//   });
-//   if (!room) {
-//     throw new Error(`Chat room with ID ${id} not found`);
-//   }
-//   return room;
+//   const data = await res.json();
+//   return data;
 // }
 
 
 export async function createRoom(): Promise<chatRoom> {
   const chatRoom = await getAllRoom();
   const len = chatRoom.length;
- console.log(len); 
   const res = await fetch(`http://localhost:3000/api/post/createRoom`, {
     method: 'POST',
     body: JSON.stringify({
-      param:
-      {
+      
         name: `Room ${len + 1}`
-      }
+      
     })
   });
 
