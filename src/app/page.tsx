@@ -54,35 +54,14 @@ const Home = () => {
       responses: [chatHistory.answer],
     }));
     setQuestions(newQuestions);
-  }, [messages]);
-  console.log(questions);
-  
+  }, [messages]);  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
-    // algorithm nya disesuaiin, terganting side bar
-    const inputArray = inputElement.value.split("dan");
-    let response = "";
-    for (let i = 0; i < inputArray.length; i++) {
-      const featClassifier = new FeatureClassifier(inputArray[i], algorithm);
-      const feat = featClassifier.getFeature();
-      const resp = await feat.getResponse();
-      if (i != 0) response += ", ";
-      response += resp;
-      // const resp: string | Promise<string> = feat.getResponse();
-      // if(typeof (resp) === 'string'){
-      //   if (i != 0) response += ", ";
-      //   response += resp;
-      // }
-      // else{
-      //   if (i != 0) response += ", ";
-      //   response += await resp;
-      // }
-    }
-
+    const inputArray = inputElement.value.split(" dan ");
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
@@ -117,8 +96,9 @@ const Home = () => {
       return updatedQuestions;
     });
     // roomId nya disesuaiin, terganting side bar
+    console.log (inputElement.value);
     await addChat(
-      inputElement.value,
+      newQuestion.text,
       newQuestion.responses[newQuestion.responses.length - 1],
       roomId!
     );
