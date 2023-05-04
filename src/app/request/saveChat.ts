@@ -9,14 +9,14 @@ export async function getAllRoom(): Promise<chatRoom[]> {
   return data;
 }
 
-// export async function getRoomChatHistory(roomId: number): Promise<chatRoom>{
-//   const res = await fetch(`http://localhost:3000/api/post/getChatHistory?roomId=${roomId}`);
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data from API');
-//   }
-//   const data = await res.json();
-//   return data;
-// }
+export async function getRoomChatHistory(roomId: number): Promise<chatRoom>{
+  const res = await fetch(`http://localhost:3000/api/post/getChatHistory?roomId=${roomId}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch data from API');
+  }
+  const data = await res.json();
+  return data;
+}
 
 
 export async function createRoom(): Promise<chatRoom> {

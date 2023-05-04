@@ -6,7 +6,7 @@ import SideBar from "./components/sideBar";
 import Answer from "./components/answer";
 import Question from "./components/question";
 import Search from "./components/search";
-import { addChat, createRoom, getAllRoom } from "./request/saveChat";
+import { addChat, createRoom, getAllRoom, getRoomChatHistory } from "./request/saveChat";
 import { chatRoom } from "./algorithm/interface";
 
 export interface Questions {
@@ -34,6 +34,32 @@ const Home = () => {
   async function create() {
     await createRoom();
   }
+
+  useEffect(() => {
+    if(!roomId){
+      return;
+    }
+    const getMessages = async () => {
+      const messages = await getRoomChatHistory(roomId!);
+      setMessages(messages);
+    };
+    getMessages();
+  }, [roomId]);
+
+  useEffect(() => {
+    if (!messages) {
+      return;
+    }
+    const chatHistory = messages.chatHistory || [];
+    const newQuestions = chatHistory.map((message) => ({
+      id: message.messageId,
+      text: message.question,
+      responses: [message.answer],
+    }));
+    setQuestions(newQuestions);
+  }, [messages]);
+  
+  console.log(questions);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -123,7 +149,7 @@ const Home = () => {
                 className=""
                 onClick={() => setRoomId(r.roomId)}
               >
-                <button className="text-center py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate text-purple-950 focus:bg-purple-950 focus:text-white">
+                <button className="text-left py-2.5 px-5 mr-2 mb-2 w-52 items-center h-9 text-xs font-medium  bg-transparent rounded truncate text-purple-950 focus:bg-purple-950 focus:text-white">
                   Room {r.roomId}
                 </button>
               </div>

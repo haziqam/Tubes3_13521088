@@ -1,6 +1,7 @@
 import { getAllRoom} from "../request/saveChat";
 import { chatRoom } from "../algorithm/interface";
 import { createRoom } from "../request/saveChat";
+import { getRoomChatHistory } from "../request/saveChat";
 
 // async function getRoom(): Promise<chatRoom[]>{
 //     const data = await getAllRoom();
@@ -21,7 +22,7 @@ import { createRoom } from "../request/saveChat";
 
 
 // async function getRoom(){
-//   const data = await getRoomChatHistory(2);
+//   const data = await getRoomChatHistory(1);
 //   console.log(data);
 
 // }
