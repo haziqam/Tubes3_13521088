@@ -33,12 +33,12 @@ export default class FeatureClassifier {
     getFeature(): Feature {
         let match = this.addQuestion.exec(this.userMsg);
         if (match !== null) {
-            return new AddQuestion(match);
+            return new AddQuestion(match, this.algorithm);
         }
         
         match = this.deleteQuestion.exec(this.userMsg);
         if (match !== null) {
-            return new DeleteQuestion(match);
+            return new DeleteQuestion(match, this.algorithm);
         }
 
         match = this.date.exec(this.userMsg);
