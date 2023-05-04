@@ -55,7 +55,6 @@ const Home = () => {
     }));
     setQuestions(newQuestions);
   }, [messages]);
-  console.log(questions);
   
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
