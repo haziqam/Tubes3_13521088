@@ -116,5 +116,5 @@ export async function deleteQnA(id: number): Promise<QuestionAndAnswer> {
 // }
 // catch (error) {
 //   console.error(error);
-// };
+// }
 
