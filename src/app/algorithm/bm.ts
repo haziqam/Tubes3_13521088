@@ -34,7 +34,6 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
         } else {
           matches += 1;
         }
-        console.log(matches);
       } else {
         matches += Math.max(1, j - last[textLower.charCodeAt(s + j)]);
       }
