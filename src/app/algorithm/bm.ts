@@ -21,23 +21,24 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
     let s = 0;
     let matches = 0;
 
-    while (s <= textLength - patternLength) { /**Kalo lebih panjang otomtis ga masuk loop jadi langsung ke levenshtein */
+    while (matches <= textLength - patternLength) { /**Kalo lebih panjang otomtis ga masuk loop jadi langsung ke levenshtein */
       let j = patternLength - 1;
 
-      while (j >= 0 && patternLower[j] == textLower[s + j]) {
+      while (j >= 0 && patternLower[j] == textLower[matches + j]) {
         j--;
       }
 
       if (j < 0) {
-        matches++;
-        
-        s += patternLength - last[textLower.charCodeAt(s + patternLength)];
+        if(matches + patternLength < textLength ){
+           matches += patternLength - last[textLower.charCodeAt(s + patternLength)];
+        } else {
+          matches += 1;
+        }
+        console.log(matches);
       } else {
-        s += Math.max(1, j - last[textLower.charCodeAt(s + j)]);
+        matches += Math.max(1, j - last[textLower.charCodeAt(s + j)]);
       }
     }
-    
-
     if (matches == 1) {
       result.push({
         id: data[i].id,
@@ -49,11 +50,3 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
 
   return result;
 }
-
-
-
-// boyerMoore("Apa IbuKota Indonesia?").then((result) => {
-//   console.log(result);
-// }).catch((error) => {
-//   console.error(error);
-// });
