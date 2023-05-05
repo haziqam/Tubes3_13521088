@@ -61,9 +61,10 @@ export class AskQuestion extends Feature {
                     }
                 }
             }
-        } else{
+        } else {
             res = result[0].answer;
         }
+
         return res;
     }
       
