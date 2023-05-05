@@ -46,9 +46,9 @@ export class DeleteQuestion extends Feature {
                 }
                 else {
                     response = "Pertanyaan tidak ditemukan. Pertanyaan serupa: \n"
-                    let similiarCount: number = (result.length >= 3) ? 3 : result.length;
+                    let similiarCount: number = (distanceResult.length >= 3) ? 3 : result.length;
                     for (let i = 0; i < similiarCount; i++) {
-                        response += result[i].question;
+                        response += distanceResult[i].question;
                         if (i !== similiarCount - 1) response += "\n";
                     }    
                 }
