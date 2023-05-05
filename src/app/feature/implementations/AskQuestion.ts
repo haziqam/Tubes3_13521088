@@ -27,18 +27,20 @@ export class AskQuestion extends Feature {
     async getResponse(): Promise<string> {
         let res: string = "";
         let result: QuestionAndAnswer[] = [];
+        const allQnA: QuestionAndAnswer[] = await this.getQuestionandAnswer()
 
         if (this.algorithm == "KMP") {
-            result = knuthMorrisPratt(this.userMsg, await this.getQuestionandAnswer());
+            result = knuthMorrisPratt(this.userMsg, allQnA);
         } else if (this.algorithm == "BM") {
-            result = boyerMoore(this.userMsg, await this.getQuestionandAnswer());
+            result = boyerMoore(this.userMsg, allQnA);
         } else {
             res = "Kamu belum memilih algoritma";
             return res;
         }
 
         if (result.length == 0) {
-            result = await levenshteinDistance(this.userMsg, await this.getQuestionandAnswer());
+             
+            result = levenshteinDistance(this.userMsg, allQnA);
             if (result.length == 0) {
                 res = "Pertanyaan tidak dapat diproses";
             } else {
