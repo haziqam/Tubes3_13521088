@@ -37,7 +37,7 @@ export class AskQuestion extends Feature {
             return res;
         }
 
-        if (result.length == 0 || result.length > 1) {
+        if (result.length == 0) {
             result = await levenshteinDistance(this.userMsg, await this.getQuestionandAnswer());
             if (result.length == 0) {
                 res = "Pertanyaan tidak dapat diproses";
@@ -61,9 +61,10 @@ export class AskQuestion extends Feature {
                     }
                 }
             }
-        } else if (result.length == 1) {
+        } else {
             res = result[0].answer;
         }
+
         return res;
     }
       
