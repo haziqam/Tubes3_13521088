@@ -7,16 +7,15 @@ export class Calculator extends Feature {
 
     constructor (userMsg: string, regex: RegExp) {
         super();
-        const addMulRegex1 = /(\d+)(?=\()/g;
+        const addMulRegex1 = /(\d+)\s*(?=\()/g;
         const newExpression = userMsg.replace(addMulRegex1, '$1*');
-        const addMulRegex2 = /(\))(?=\d+)/g;
+        const addMulRegex2 = /(\))\s*(?=\d+)/g;
         const finalExpression = newExpression.replace(addMulRegex2, '$1*');
         this.userMsg = finalExpression;
         this.regex = regex;
     }
 
     getResponse(): string {
-        console.log(this.userMsg)
         const result = evaluate(this.userMsg, this.regex);
         if (result != undefined && !isNaN(result)) {
             return "Hasilnya adalah " + result.toString();
