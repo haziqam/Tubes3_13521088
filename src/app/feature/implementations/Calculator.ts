@@ -13,6 +13,7 @@ export class Calculator extends Feature {
         const newExpression1 = newExpression.replace(addMulRegex2, '$1*');
         const addPlusRegex = /(-?\d+(\.\d+)?)\s*(?=-\d+(\.\d+)?)/g;
         const finalExpression = newExpression1.replace(addPlusRegex, '$1 + ');
+        console.log(finalExpression);
         this.userMsg = finalExpression;
         this.regex = regex;
     }
