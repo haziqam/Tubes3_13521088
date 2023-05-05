@@ -61,6 +61,7 @@ const Home = () => {
  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if(!roomId){
     //   toast.warning("Anda belum memilih ruang percakapan", {
     //     position: toast.POSITION.TOP_CENTER,
