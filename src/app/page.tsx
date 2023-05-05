@@ -71,7 +71,7 @@ const Home = () => {
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
-    const inputArray = inputElement.value.split(" dan ");
+    const inputArray = inputElement.value.split(" dan, ");
     const newQuestion: Questions = {
       id: questions.length + 1,
       text: inputElement.value,
