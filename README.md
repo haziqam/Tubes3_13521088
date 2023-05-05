@@ -33,7 +33,7 @@ Hari apa 03/05/1921?
 
 
 # Deployment
-(Deployment)[tubes3-13521088-sepia.vercel.app/]
+[Deployment](tubes3-13521088-sepia.vercel.app/)
 
 
 # Author
