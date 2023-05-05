@@ -7,12 +7,24 @@ export class Calculator extends Feature {
 
     constructor (userMsg: string, regex: RegExp) {
         super();
-        this.userMsg = userMsg;
+        const addMulRegex1 =  /(-?\d+(\.\d+)?)\s*(?=\()/g;
+        const newExpression = userMsg.replace(addMulRegex1, '$1*');
+        const addMulRegex2 = /(\))\s*(?=-?\d+(\.\d+)?)/g;
+        const newExpression1 = newExpression.replace(addMulRegex2, '$1*');
+        const addPlusRegex = /(-\d+(\.\d+)?)(?=-\d+(\.\d+)?)/g;
+        const finalExpression = newExpression1.replace(addPlusRegex, '$1+');
+        this.userMsg = finalExpression;
         this.regex = regex;
     }
 
     getResponse(): string {
-        const result = evaluate(this.userMsg, this.regex);
+        let result;
+        try {
+            result = evaluate(this.userMsg, this.regex);
+            console.log(result);
+        } catch (error) {
+            return "Sintaks persamaan tidak sesuai"
+        }
         if (result != undefined && !isNaN(result)) {
             return "Hasilnya adalah " + result.toString();
         }

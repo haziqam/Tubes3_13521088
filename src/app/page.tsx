@@ -4,7 +4,7 @@ import FeatureClassifier from "./feature/featureClassifier";
 import Question from "./components/question";
 import { addChat, createRoom, getAllRoom, getRoomChatHistory } from "./request/saveChat";
 import { chatRoom } from "./algorithm/interface";
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 
 export interface Questions {
   id: number;
@@ -16,7 +16,7 @@ const Home = () => {
   const [questions, setQuestions] = useState<Questions[]>([]);
   const [messages, setMessages] = useState<chatRoom>();
   const [room, setRoom] = useState<chatRoom[]>([]);
-  const [roomId, setRoomId] = useState<number>();
+  const [roomId, setRoomId] = useState<number>(1);
   const [inputValue, setInputValue] = useState("");
   const [algorithm, setAlgorithm] = useState("");
 
@@ -30,7 +30,7 @@ const Home = () => {
 
   async function create() {
     const newRoom = await createRoom();
-    console.log(newRoom.name)
+    setRoomId(newRoom.roomId)
     setRoom(prevRooms => [newRoom, ...prevRooms]);
   }
 
@@ -61,11 +61,13 @@ const Home = () => {
  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    if(!roomId){
-      toast.warning("Anda belum memilih ruang percakapan", {
-        position: toast.POSITION.TOP_CENTER,
-    });
-    } else {
+    event.preventDefault();
+    // if(!roomId){
+    // //   toast.warning("Anda belum memilih ruang percakapan", {
+    // //     position: toast.POSITION.TOP_CENTER,
+    // // });
+    //   setRoomId(1);
+    // } else {
       event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
@@ -76,7 +78,7 @@ const Home = () => {
       text: inputElement.value,
       responses: ["Processing..."],
     };
-    setQuestions([...questions, newQuestion]); // Add new question to state and show immediately
+    setQuestions([...questions, newQuestion]);
     setInputValue("");
     for (let i = 0; i < inputArray.length; i++) {
       const featClassifier = new FeatureClassifier(inputArray[i], algorithm);
@@ -110,7 +112,7 @@ const Home = () => {
       newQuestion.responses[newQuestion.responses.length - 1],
       roomId!
     );
-    }
+    // }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
