@@ -68,7 +68,6 @@ const Home = () => {
     // // });
     //   setRoomId(1);
     // } else {
-      event.preventDefault();
     const inputElement = event.currentTarget.elements.namedItem(
       "question"
     ) as HTMLInputElement;
