@@ -21,7 +21,7 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
     let s = 0;
     let matches = 0;
 
-    while (s <= textLength - patternLength) {
+    while (s <= textLength - patternLength) { /**Kalo lebih panjang otomtis ga masuk loop jadi langsung ke levenshtein */
       let j = patternLength - 1;
 
       while (j >= 0 && patternLower[j] == textLower[s + j]) {
@@ -30,11 +30,13 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
 
       if (j < 0) {
         matches++;
+        
         s += patternLength - last[textLower.charCodeAt(s + patternLength)];
       } else {
         s += Math.max(1, j - last[textLower.charCodeAt(s + j)]);
       }
     }
+    
 
     if (matches == 1) {
       result.push({

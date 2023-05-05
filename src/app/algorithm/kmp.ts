@@ -64,4 +64,3 @@ export function knuthMorrisPratt(pattern: string, data: QuestionAndAnswer[]): Qu
     }
     return found;
 }
-

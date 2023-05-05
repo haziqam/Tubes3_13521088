@@ -3,7 +3,7 @@ import { deleteQnA, getQnA } from "../../request/request";
 import { knuthMorrisPratt } from "../../algorithm/kmp";
 import { boyerMoore } from "../../algorithm/bm";
 import { QuestionAndAnswer } from "../../algorithm/interface";
-import { levenshteinDistance } from "@/app/algorithm/leveinshteinDistance";
+import { levenshteinDistance } from "../../algorithm/leveinshteinDistance";
 
 export class DeleteQuestion extends Feature {
     private readonly regexMatch: string[];
