@@ -66,7 +66,7 @@ Project dependencies:
   
 
 ## Deployment
-[Chat GPT DUPEEEE](tubes3-13521088-sepia.vercel.app/)
+[Chat GPT DUPEEEE](https://tubes3-13521088-sepia.vercel.app/)
 
 ## Project Status
 Project is: _complete_ 
