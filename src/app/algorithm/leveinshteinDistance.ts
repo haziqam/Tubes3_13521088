@@ -29,7 +29,7 @@ export function levenshteinDistance(pattern: string, data: QuestionAndAnswer[]):
             }
         }
         let percentage = (1 - getDistance[patternLength][questionLength] / Math.max(patternLength, questionLength)) * 100;
-        if (percentage >= 80) {
+        if (percentage >= 50) {
             bestMatch.push({ question: data[i].id, percentage: percentage })
         }
     }
