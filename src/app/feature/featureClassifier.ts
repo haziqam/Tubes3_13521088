@@ -11,7 +11,7 @@ export default class FeatureClassifier {
     private readonly algorithm: string;
 
     private readonly addQuestion: RegExp 
-    = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) "(.*)" dengan (jawaban|respon) (.*) ke (dalam )?(database|basis data)/i; 
+    = /^(tambahkan|input|masukkan|simpan) (pertanyaan|query) "(.*)" dengan (jawaban|respon) "(.*)" ke (dalam )?(database|basis data)/i; 
 
     private readonly deleteQuestion: RegExp
     = /^(hapus|hilangkan) (data |informasi )?(pertanyaan|query) "(.*)" dari (database|basis data)/i;
