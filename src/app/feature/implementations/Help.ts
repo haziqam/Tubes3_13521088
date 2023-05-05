@@ -31,8 +31,8 @@ export class Help extends Feature {
         28/05/2006?
         31/01/1872
         
-        Anda juga dapat menanyakan beberapa pertanyaan sekaligus dengan tanda pemisah '|'. Contoh:
-        Hari apa 03/05/1921? | Simpan query XXX dengan jawaban YYY ke database |
+        Anda juga dapat menanyakan beberapa pertanyaan sekaligus dengan konjungsi 'dan'. Contoh:
+        Hari apa 03/05/1921? dan Simpan query XXX dengan jawaban YYY ke database dan
         (3+5-(6/2))^3`
         return response;
     }

@@ -7,7 +7,11 @@ export class Calculator extends Feature {
 
     constructor (userMsg: string, regex: RegExp) {
         super();
-        this.userMsg = userMsg;
+        const addMulRegex1 = /(\d+)(?=\()/g;
+        const newExpression = userMsg.replace(addMulRegex1, '$1*');
+        const addMulRegex2 = /(\))(?=\d+)/g;
+        const finalExpression = newExpression.replace(addMulRegex2, '$1*');
+        this.userMsg = finalExpression;
         this.regex = regex;
     }
 
