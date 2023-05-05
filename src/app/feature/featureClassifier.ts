@@ -52,7 +52,7 @@ export default class FeatureClassifier {
             if(arr != null){
                 let cekOperand = false;
                 arr.forEach((el) => {
-                    console.log(el);
+                    // console.log(el);
                     if(el === '+' || el === '-' || el === '*' || el === '/' || el === '^') cekOperand = true;
                 });
                 if(cekOperand) return new Calculator(this.userMsg, this.calculator);

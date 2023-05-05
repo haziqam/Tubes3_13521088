@@ -40,7 +40,7 @@ export function evaluate (expression:string, regex:RegExp): number | undefined{
         const operator = operatorStack.pop()!;
         const operand2 = operandStack.pop()!;
         const operand1 = operandStack.pop()!;
-        console.log(operator, operand2, operand1)
+        // console.log(operator, operand2, operand1)
         operandStack.push(calculate(operator, operand2, operand1));
       }
       operatorStack.push(token);
@@ -51,7 +51,7 @@ export function evaluate (expression:string, regex:RegExp): number | undefined{
         const operator = operatorStack.pop()!;
         const operand2 = operandStack.pop()!;
         const operand1 = operandStack.pop()!;
-        console.log(operator, operand2, operand1)
+        // console.log(operator, operand2, operand1)
         operandStack.push(calculate(operator, operand2, operand1));
       }
       operatorStack.pop();
@@ -63,7 +63,7 @@ export function evaluate (expression:string, regex:RegExp): number | undefined{
     const operator = operatorStack.pop()!;
     const operand2 = operandStack.pop()!;
     const operand1 = operandStack.pop()!;
-    console.log(operator, operand2, operand1)
+    // console.log(operator, operand2, operand1)
     operandStack.push(calculate(operator, operand2, operand1));
   }
   return operandStack.pop();
