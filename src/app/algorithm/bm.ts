@@ -49,3 +49,11 @@ export function boyerMoore(pattern: string, data: QuestionAndAnswer[]): Question
 
   return result;
 }
+
+
+
+// boyerMoore("Apa IbuKota Indonesia?").then((result) => {
+//   console.log(result);
+// }).catch((error) => {
+//   console.error(error);
+// });
