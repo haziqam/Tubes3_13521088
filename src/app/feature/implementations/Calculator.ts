@@ -16,6 +16,7 @@ export class Calculator extends Feature {
     }
 
     getResponse(): string {
+        console.log(this.userMsg)
         const result = evaluate(this.userMsg, this.regex);
         if (result != undefined && !isNaN(result)) {
             return "Hasilnya adalah " + result.toString();
