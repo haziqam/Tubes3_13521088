@@ -7,11 +7,12 @@ export class Calculator extends Feature {
 
     constructor (userMsg: string, regex: RegExp) {
         super();
-        const addMulRegex1 = /(\d+)\s*(?=\()/g;
+        const addMulRegex1 =  /(-?\d+(\.\d+)?)(?=\()/g;
         const newExpression = userMsg.replace(addMulRegex1, '$1*');
-        const addMulRegex2 = /(\))\s*(?=\d+)/g;
+        const addMulRegex2 = /(\))(?=-?\d+(\.\d+)?)/g;
         const newExpression1 = newExpression.replace(addMulRegex2, '$1*');
-        const finalExpression = newExpression1.replace(/(?<=-)\s*(?=-)/g, '+');
+        const addPlusRegex = /(-\d+(?:\.\d+)?)(?=-\d+(?:\.\d+)?)/g;
+        const finalExpression = newExpression1.replace(addPlusRegex, '$1+');
         this.userMsg = finalExpression;
         this.regex = regex;
     }
